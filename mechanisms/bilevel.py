@@ -40,9 +40,9 @@ class BilevelMechanism(DraftMechanism):
             f"After game {self.lock_game}, your draft slot is already set — reducing "
             f"effort after that point has ZERO lottery benefit. Before game "
             f"{self.lock_game}, incentives mirror the standard NBA lottery (worse "
-            f"record = better weighted odds). If you are going to accept worse lottery "
-            f"odds by tanking, you must do so before game {self.lock_game}; tanking "
-            f"in the final stretch of the season helps nobody."
+            f"record = better weighted odds). If you are going to reduce effort to "
+            f"improve your lottery position, you must do so before game {self.lock_game}; "
+            f"tanking in the final stretch of the season gains nothing."
         )
 
     def record_lock_snapshot(self, teams: list[Team]) -> None:

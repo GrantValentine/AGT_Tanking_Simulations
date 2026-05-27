@@ -28,7 +28,7 @@ if not os.environ.get("ANTHROPIC_API_KEY"):
 
 # ── Config ────────────────────────────────────────────────────────────────────
 
-SEASONS  = 5
+SEASONS  = 25
 SEED     = 42
 DB_PATH  = "tanking_sim.db"
 OUT_DIR  = "results"

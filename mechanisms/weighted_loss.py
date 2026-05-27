@@ -82,6 +82,19 @@ class WeightedLossMechanism(DraftMechanism):
             "smoothly across the season instead of vanishing at a hard lock point."
         )
 
+    @property
+    def llm_decision_note(self) -> str:
+        return (
+            "WEIGHTED-LOSS STRATEGY NOTE: Losses accumulate toward your lottery score "
+            "with exponentially decreasing weight (half-life ~20 games). This means "
+            "late-season tanking is far less valuable than early-season tanking: "
+            "a loss at game 20 is worth 50% of a game-1 loss; at game 40, 25%; "
+            "at game 60, only ~12%; at game 82, ~6%. By mid-season, additional tanking "
+            "buys almost nothing in lottery value. You should be MORE reluctant to tank "
+            "late in the season than you would be under a flat lottery — the payoff is "
+            "minimal and the cost (reputation, fan engagement) is the same."
+        )
+
     def record_game_loss(self, game_idx: int, loser_team_id: int, total_games: int) -> None:
         """Called by Season after every game to accumulate weighted losses."""
         self._weighted_losses[loser_team_id] += self.weight_fn(game_idx, total_games)

@@ -67,13 +67,21 @@ class NBAThreeTwoOneLottery(DraftMechanism):
     @property
     def llm_decision_note(self) -> str:
         return (
-            "3-2-1 STRATEGY NOTE: Under this mechanism the incentive for the very worst "
-            "teams is INVERTED. Tier A (bottom 3 records) receives only 2 lottery balls, "
-            "while Tier B (4th-14th worst) receives 3 balls — so finishing 4th-worst gives "
-            "BETTER lottery odds than finishing 1st-worst. If you are projected to finish in "
-            "the bottom 3, you should compete harder to reach Tier B (4th-14th worst) and "
-            "improve your lottery odds. Only reduce effort if you are safely in Tier B and "
-            "cannot realistically reach the playoffs."
+            "3-2-1 STRATEGY NOTE: Under this mechanism, non-playoff teams should NEVER "
+            "tank, regardless of how bad their record is. Here is why: "
+            "(1) Tier A (bottom 3 records) receives only 2 lottery balls each — FEWER "
+            "than Tier B teams (3 balls each). Tanking further within Tier A gives zero "
+            "additional lottery benefit; all bottom-3 teams get the same 2 balls. "
+            "(2) Tier B (4th-14th worst) teams all receive 3 balls regardless of rank "
+            "within Tier B — so tanking to be 5th-worst instead of 10th-worst does "
+            "nothing for your lottery odds. "
+            "(3) The ONLY lottery-driven incentive is to avoid Tier A: if you are near "
+            "the 3rd/4th-worst boundary, compete harder to stay in Tier B (3 balls > 2). "
+            "In all other cases, full effort is strictly correct — you preserve fan "
+            "engagement with zero sacrifice in lottery position. OVERRIDE: the default "
+            "rule about tanking when 'projected to finish among the league's worst 3-4 "
+            "teams' does NOT apply here — under 3-2-1, being in the worst 3 gives you "
+            "FEWER lottery balls, so that condition is a reason to compete harder, not tank."
         )
 
     # ── ball pool ──────────────────────────────────────────────────────────────

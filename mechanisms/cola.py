@@ -75,10 +75,12 @@ class COLAMechanism(DraftMechanism):
         return (
             "COLA STRATEGY NOTE: Under COLA, this season's win-loss record has NO effect "
             "on your lottery odds. Every non-playoff team earns exactly 1 ticket this season "
-            "regardless of record. Tanking cannot improve your lottery position. "
-            "The only decision that matters for lottery purposes is whether you make the "
-            "playoffs or not. Always exert full effort unless playoff contention is realistic "
-            "and you are choosing to compete for it."
+            "regardless of record — a team that goes 10-72 gets the same lottery benefit as "
+            "a team that goes 30-52. Tanking cannot improve your lottery position at all. "
+            "The only decision that matters is whether you make the playoffs or not. "
+            "Always exert full effort: if you can make the playoffs, compete for it; "
+            "if you cannot, competing hard still costs you nothing in lottery terms and "
+            "preserves fan engagement."
         )
 
     def expected_pick_values(

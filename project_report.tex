@@ -1005,56 +1005,92 @@ playoff boundary.
 
 \subsection{LLM Agent Results}
 
-We ran 10 seasons of the current NBA lottery with all 30 teams represented
-by \texttt{claude-haiku-4-5}, using the same payoff parameters as the
-rational-agent baseline ($V = 200$).
-The LLM agents tank at an average rate of \textbf{13.2\%}, nearly twice
-the rational-agent rate of 6.9\% under the same mechanism.
+We ran 25 seasons across all five draft mechanisms with all 30 teams
+represented by \texttt{claude-haiku-4-5}, using the same payoff parameters
+as the rational-agent baseline ($V = 200$).
+Table~\ref{tab:llm_results} summarizes the results.
 
-The reasoning traces explain the discrepancy.
-Rational agents compute expected utility precisely via a normal approximation
-to playoff probability, and find that many lottery-adjacent positions do not
-justify reduced effort once the high playoff value is weighted.
-LLM agents reason qualitatively: once a team perceives playoff contention
-as remote, it commits immediately to effort $= 0$, applying a sharper
-elimination threshold than the probabilistic model.
-Representative samples from the logged reasoning field:
+\begin{table}[h]
+\centering
+\begin{tabular}{lrrr}
+\hline
+\textbf{Mechanism} & \textbf{Overall tank\%} & \textbf{When out\%} & \textbf{Late-season\%} \\
+\hline
+NBA Lottery (2019)     & 8.0\% & 17.1\% & 11.5\% \\
+Bilevel                & 6.2\% & 13.3\% &  4.6\% \\
+COLA                   & 0.0\% &  0.0\% &  0.0\% \\
+Weighted Loss (exp)    & 3.4\% &  7.2\% &  2.4\% \\
+NBA 3-2-1              & 0.0\% &  0.1\% &  0.0\% \\
+\hline
+\end{tabular}
+\caption{LLM agent tanking rates by mechanism (25 seasons, $V=200$).
+``When out'' conditions on decisions where the team's rank exceeds the playoff cutoff.
+``Late-season'' conditions on decisions after game~60 of 82.}
+\label{tab:llm_results}
+\end{table}
+
+Two distinct behavioral patterns emerge.
+The first is \emph{Type~1 tanking}: strategic effort reduction driven by
+lottery incentives. This is what the rational agent exhibits.
+The second is \emph{Type~2 tanking}: behavioral post-elimination effort
+reduction, in which the LLM reduces effort once playoff contention is
+perceived as remote, independent of the specific lottery payoff structure.
+Type~2 tanking explains why NBA Lottery LLM rates (8.0\%) remain somewhat
+above the rational-agent baseline (6.9\%): the LLM applies a sharper
+qualitative elimination threshold than continuous expected-utility maximization.
+
+The mechanism-specific results reveal that LLM agents correctly respond
+to the incentive structures embedded in each mechanism's design.
+
+\textbf{COLA and NBA 3-2-1} produce near-zero tanking (0.0\% and 0.1\%
+respectively). Under COLA, every non-playoff team earns the same single
+ticket regardless of record, so the LLM correctly identifies no within-season
+lottery benefit from tanking. Under 3-2-1, the LLM correctly identifies that
+non-playoff teams have no lottery reason to tank: Tier~A (bottom~3) teams
+receive \emph{fewer} balls than Tier~B, and within each tier all teams hold
+equal ball counts regardless of their relative rank.
+
+\textbf{Bilevel} exhibits the lock effect clearly.
+Mid-season tanking (games 30--60) runs at 12.0\%, consistent with
+NBA-lottery-like incentives before the game-70 standings lock.
+After game~60, tanking drops to 4.6\% as the LLM receives the signal that
+draft position has been frozen and further effort reduction is worthless.
+The residual 4.6\% reflects Type~2 behavioral elimination responses that
+persist even after the lottery incentive has been removed.
+
+\textbf{Weighted loss} displays the predicted decay signature.
+Mid-season tanking (6.1\%) is well below NBA Lottery mid-season rates (11.9\%),
+reflecting the LLM's awareness that losses become progressively less valuable.
+Late-season tanking (2.4\%) is substantially below NBA Lottery late-season
+rates (11.5\%), confirming that the exponential decay successfully communicates
+declining incentives to qualitative reasoners.
+
+Representative reasoning traces illustrate Type~2 behavioral tanking:
 
 \begin{quote}
-\textit{``At 8-22 with 52 games remaining, you project to ${\sim}$15 wins
-total; playoff probability is negligible ($<$5\%), you're in the bottom~3,
-and lottery upside exceeds any realistic playoff path.''}
-(season~0, $e = 0.0$)
+\textit{``At 24-38 with 20 games left, playoff probability is negligible
+(${\sim}$2\%); projecting to ${\sim}$28-29 wins places us firmly outside
+contention; minimize effort to improve lottery position.''}
+(Weighted Loss, season~12, $e = 0.0$)
 \end{quote}
-
-\begin{quote}
-\textit{``You have played 54 games, are currently 5 spots out of the
-playoffs with a 41\% win rate projecting to ${\sim}$34 wins by season end,
-which is far below playoff contention; minimize effort to maximize lottery
-position.''}
-(season~1, $e = 0.0$)
-\end{quote}
-
-LLM agents also show nuanced behavior near the playoff bubble.
-Teams in contention resist tanking explicitly, citing the playoff value:
 
 \begin{quote}
 \textit{``Currently in playoff position (rank~\#8, 8 games ahead of bubble)
 with 69 games remaining; playoff probability is high and 200-pt bonus
 vastly exceeds any lottery pick expected value; compete.''}
-(season~0, $e = 1.0$)
+(NBA Lottery, season~3, $e = 1.0$)
 \end{quote}
 
-Two findings are notable.
-First, the tanking incentive under the NBA lottery is robust enough to
-emerge spontaneously from language model reasoning without any behavioral
-rule being encoded in the prompt.
-Second, LLM agents tank \emph{more} aggressively than rational agents
-because qualitative elimination thresholds trigger a sharper behavioral
-response than continuous expected-utility maximization.
-This suggests that real front offices, which reason qualitatively about
-playoff odds rather than computing exact likelihoods, may tank at rates
-closer to the LLM baseline than the rational-agent baseline.
+One important caveat applies to all LLM results.
+The near-zero tanking rates under COLA and 3-2-1 are conditional on the
+fixed playoff value assumption ($V = 200$).
+In a season featuring a generational draft talent, the expected value of
+any lottery ticket rises dramatically, and the playoff-versus-lottery
+tradeoff can flip even under mechanisms designed to eliminate tanking
+incentives.
+Our results therefore characterize LLM behavior under typical draft-class
+conditions; they should not be interpreted as mechanism-proof resistance
+to tanking in all circumstances.
 
 \subsection{Mechanism Design Implications}
 
@@ -1177,21 +1213,19 @@ maximizers, an assumption supported by \citet{taylor2002} and
 
 \paragraph{Open questions.}
 Three directions seem most promising for future work.
-First, extending the model to incorporate draft class strength as a variable
-would allow testing whether reform mechanisms remain effective in the
-generational draft years when tanking pressure is highest.
-Second, implementing LLM agents at scale (using a full 30-team league of
-language models rather than the single-mechanism 10-season test we ran) would
-allow testing whether strategic tanking emerges from language models' implicit
-reasoning about competitive games, and whether their behavior is qualitatively
-consistent with rational-agent predictions across all five mechanisms.
-Third, the structural question raised by our results about competitive
+First, extending the model to incorporate variable draft class strength
+would allow testing whether reform mechanisms remain robust when the expected
+value of high picks rises sharply, as in generational draft years.
+Our LLM results show near-zero tanking under COLA and 3-2-1 given the
+fixed playoff value assumption ($V = 200$); a sufficiently strong draft class
+could flip this result even under anti-tanking mechanisms.
+Second, the structural question raised by our results about competitive
 balance (that tanking under the NBA lottery actually improves standings-skill
 alignment) deserves formal analysis: is there a sense in which the ``right''
 level of tanking improves the draft lottery's redistributive efficiency?
 If so, the goal should not be to eliminate tanking entirely but to channel it
 into forms that the mechanism can exploit.
-Fourth, a hybrid of the bilevel and 3-2-1 mechanisms warrants formal study.
+Third, a hybrid of the bilevel and 3-2-1 mechanisms warrants formal study.
 Bilevel ranking eliminates post-breakpoint tanking; 3-2-1 inverts Tier~A
 incentives and thereby discourages deliberate bottom-of-the-standings
 positioning even before any lock date.

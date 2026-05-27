@@ -89,6 +89,15 @@ MIXED_RUNS = {
     15: "nba_lottery_mixed_15rational_e4d95b",
     30: "nba_lottery_mixed_30rational_f8fef1",
 }
+# LLM sweep runs (25 seasons each)
+LLM_MECHANISM_RUNS = {
+    "nba_lottery": "nba_lottery_llm5_f10ee203",
+    "bilevel": "bilevel_llm5_2edfce68",
+    "cola": "cola_llm5_820a1b5a",
+    "weighted_loss_exp_hl20": "weighted_loss_exp_hl20_llm5_76e463d6",
+    "nba_321_lottery": "nba_321_lottery_llm5_8666d8df",
+}
+
 # Playoff-value sensitivity sweep — pv=200 probabilistic EU baseline
 PV_RUNS = {
     50:  "nba_lottery_pv50_5c9351",
@@ -147,37 +156,39 @@ def save(name):
 print("Fig 1: Tanking rate by mechanism...")
 rat_rates  = [tanking_rate(RATIONAL_RUNS[m]) for m in MECH_KEYS]
 hon_rates  = [tanking_rate(HONEST_RUNS[m])   for m in MECH_KEYS]
-llm_rate   = tanking_rate(LLM_RUN)
+llm_rates  = [tanking_rate(LLM_MECHANISM_RUNS[m]) for m in MECH_KEYS]
 
 x = np.arange(len(MECH_KEYS))
-w = 0.28
-fig, ax = plt.subplots(figsize=(10, 5.5))
+w = 0.26
+fig, ax = plt.subplots(figsize=(11, 5.5))
 
-bars_rat = ax.bar(x - w, rat_rates, w, label="Rational agents",
+bars_rat = ax.bar(x - w, rat_rates, w, label="Rational agents (50 seasons)",
                   color=[COLORS[m] for m in MECH_KEYS], edgecolor="white", linewidth=0.5)
-bars_hon = ax.bar(x,      hon_rates, w, label="Honest agents",
+bars_hon = ax.bar(x,      hon_rates, w, label="Honest agents (50 seasons)",
                   color=[COLORS[m] for m in MECH_KEYS], alpha=0.35,
                   edgecolor="white", linewidth=0.5, hatch="//")
-
-# LLM bar only for nba_lottery (index 0)
-ax.bar(x[0] + w, llm_rate, w, label="LLM agents (NBA only)",
-       color=COLORS["llm"], edgecolor="white", linewidth=0.5)
+bars_llm = ax.bar(x + w,  llm_rates, w, label="LLM agents (25 seasons)",
+                  color=COLORS["llm"], alpha=0.75,
+                  edgecolor="white", linewidth=0.5, hatch="...")
 
 # value labels
 for bar in bars_rat:
     h = bar.get_height()
     if h > 0.005:
-        ax.text(bar.get_x() + bar.get_width()/2, h + 0.005, f"{h:.1%}",
-                ha="center", va="bottom", fontsize=9, fontweight="bold")
+        ax.text(bar.get_x() + bar.get_width()/2, h + 0.003, f"{h:.1%}",
+                ha="center", va="bottom", fontsize=8, fontweight="bold")
 
-ax.text(x[0] + w + w/2, llm_rate + 0.005, f"{llm_rate:.1%}",
-        ha="center", va="bottom", fontsize=9, fontweight="bold")
+for bar in bars_llm:
+    h = bar.get_height()
+    if h > 0.005:
+        ax.text(bar.get_x() + bar.get_width()/2, h + 0.003, f"{h:.1%}",
+                ha="center", va="bottom", fontsize=8, color="#555")
 
 ax.set_xticks(x)
 ax.set_xticklabels([MECH_LABEL[m] for m in MECH_KEYS])
 ax.set_ylabel("Tanking rate (fraction of effort decisions < 0.5)")
-ax.set_title("Tanking Rate by Draft Mechanism and Agent Type\n(50 seasons, seed 42)")
-ax.set_ylim(0, max(rat_rates + [llm_rate]) * 1.25 + 0.02)
+ax.set_title("Tanking Rate by Draft Mechanism and Agent Type")
+ax.set_ylim(0, max(rat_rates + llm_rates) * 1.3 + 0.02)
 ax.yaxis.set_major_formatter(plt.FuncFormatter(lambda y, _: f"{y:.0%}"))
 ax.legend(loc="upper right")
 ax.axhline(0, color="black", linewidth=0.5)
@@ -419,18 +430,6 @@ save("fig7_summary_dual_axis")
 # llm_sweep_run_ids.txt then re-run make_slides_figures.py.
 # ══════════════════════════════════════════════════════════════════════════════
 
-# LLM sweep runs (5 seasons each) — update after running run_llm_sweep.py
-LLM_MECHANISM_RUNS = {
-    "nba_lottery": "nba_lottery_llm5_0933bc42",
-    "bilevel": "bilevel_llm5_27f73a7f",
-    "cola": "cola_llm5_c2c9bbe0",
-    "weighted_loss_exp_hl20": "weighted_loss_exp_hl20_llm5_3ed0557f",
-    "nba_321_lottery": "nba_321_lottery_llm5_974f062b",
-}
-
-# Override nba_lottery with the existing 10-season baseline run
-LLM_MECHANISM_RUNS["nba_lottery"] = LLM_RUN
-
 if any(v is not None for v in LLM_MECHANISM_RUNS.values()):
     print("Fig 8: Rational vs LLM tanking rate by mechanism...")
 
@@ -457,7 +456,7 @@ if any(v is not None for v in LLM_MECHANISM_RUNS.values()):
         [r for r in llm_rates_8 if r is not None],
         width=w,
         color=[COLORS[m] for m, h in zip(MECH_KEYS, has_llm) if h],
-        label="LLM agents (5 seasons)", alpha=0.55,
+        label="LLM agents (25 seasons)", alpha=0.55,
         edgecolor="white", linewidth=0.6,
         hatch="///",
     )
@@ -482,7 +481,7 @@ if any(v is not None for v in LLM_MECHANISM_RUNS.values()):
     ax.set_ylabel("Tanking rate (%)", fontsize=12)
     ax.set_title(
         "Rational vs. LLM Agent Tanking Rate by Mechanism\n"
-        "(Rational: 50 seasons · LLM: 5 seasons · V = 200)",
+        "(Rational: 50 seasons · LLM: 25 seasons · V = 200)",
         fontsize=13, fontweight="bold",
     )
     ax.spines["top"].set_visible(False)

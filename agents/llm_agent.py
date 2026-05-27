@@ -143,7 +143,7 @@ class LLMAgent(Agent):
 
         client = _get_client()
         print(f"    [LLM] s={ctx.season} ck={ctx.checkpoint} team={ctx.team.name[:10]:<10}", end=" ", flush=True)
-        for attempt in range(4):
+        for attempt in range(7):
             try:
                 response = client.messages.create(
                     model=_MODEL,
@@ -160,10 +160,13 @@ class LLMAgent(Agent):
                 )
                 break
             except Exception as e:
-                if attempt == 3:
+                if attempt == 6:
                     raise
-                wait = 5 * (2 ** attempt)  # 5, 10, 20 seconds
-                print(f"\n    [retry {attempt+1}/3 in {wait}s: {type(e).__name__}]", flush=True)
+                # Overload errors need longer waits; other errors use shorter backoff
+                is_overload = "overload" in type(e).__name__.lower() or "529" in str(e)
+                base = 30 if is_overload else 5
+                wait = min(base * (2 ** attempt), 300)  # cap at 5 min
+                print(f"\n    [retry {attempt+1}/6 in {wait}s: {type(e).__name__}]", flush=True)
                 time.sleep(wait)
 
         raw = response.content[0].text.strip()
