@@ -1,0 +1,30 @@
+{
+  "mechanisms": [
+    "nba_lottery",
+    "bilevel",
+    "cola",
+    "weighted_loss_exp_hl20",
+    "nba_321_lottery"
+  ],
+  "labels": [
+    "NBA Lottery",
+    "Bilevel",
+    "COLA",
+    "Weighted Loss",
+    "NBA 3-2-1"
+  ],
+  "rational": [
+    0.0686,
+    0.03,
+    0.005,
+    0.023,
+    0.0087
+  ],
+  "llm": [
+    0.0796,
+    0.0623,
+    0.0,
+    0.0335,
+    0.0004
+  ]
+}

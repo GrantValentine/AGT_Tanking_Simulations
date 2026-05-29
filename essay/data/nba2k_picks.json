@@ -1,0 +1,141 @@
+{
+  "picks": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14
+  ],
+  "avg_peak": [
+    88.0,
+    82.2,
+    86.0,
+    81.5,
+    81.2,
+    79.1,
+    80.9,
+    77.6,
+    79.3,
+    78.1,
+    79.1,
+    75.9,
+    76.5,
+    76.4
+  ],
+  "avg_first": [
+    80.1,
+    77.0,
+    76.9,
+    75.5,
+    74.6,
+    74.8,
+    74.3,
+    72.9,
+    73.0,
+    72.3,
+    72.7,
+    71.0,
+    72.0,
+    70.9
+  ],
+  "avg_mean": [
+    83.5,
+    79.8,
+    82.1,
+    78.5,
+    78.1,
+    77.0,
+    78.3,
+    75.5,
+    76.4,
+    75.9,
+    76.3,
+    74.1,
+    74.7,
+    74.2
+  ],
+  "sim_values": [
+    100,
+    65,
+    45,
+    30,
+    22,
+    17,
+    13,
+    10,
+    8,
+    7,
+    6,
+    5,
+    4,
+    3
+  ],
+  "key_players": [
+    {
+      "pick": 1,
+      "year": 1984,
+      "name": "Hakeem Olajuwon",
+      "peak_rating": null,
+      "first_rating": null,
+      "card": "olajuwon.jpg",
+      "note": "1984 \u2014 2x NBA Champion"
+    },
+    {
+      "pick": 1,
+      "year": 2003,
+      "name": "LeBron James",
+      "peak_rating": 99,
+      "first_rating": 87,
+      "card": "lebron.jpg"
+    },
+    {
+      "pick": 1,
+      "year": 2012,
+      "name": "Anthony Davis",
+      "peak_rating": 97,
+      "first_rating": 83,
+      "card": "davis.jpg"
+    },
+    {
+      "pick": 1,
+      "year": 2015,
+      "name": "Karl-Anthony Towns",
+      "peak_rating": 93,
+      "first_rating": 83,
+      "card": "towns.jpg"
+    },
+    {
+      "pick": 7,
+      "year": 2009,
+      "name": "Stephen Curry",
+      "peak_rating": 97,
+      "first_rating": 76,
+      "card": "curry.jpg"
+    },
+    {
+      "pick": 10,
+      "year": 2005,
+      "name": "Andrew Bynum",
+      "peak_rating": 82,
+      "first_rating": 71,
+      "card": "bynum.jpg"
+    },
+    {
+      "pick": 13,
+      "year": 2001,
+      "name": "Richard Jefferson",
+      "peak_rating": 80,
+      "first_rating": 71,
+      "card": "jefferson.jpg"
+    }
+  ]
+}

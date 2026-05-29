@@ -1,0 +1,1275 @@
+/* ── Reset & Base ─────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --navy:   #1B3A6B;
+  --red:    #C8102E;
+  --cream:  #FAFAF7;
+  --white:  #FFFFFF;
+  --dark:   #111111;
+  --gray:   #555555;
+  --lgray:  #AAAAAA;
+  --panel:  #F0F2F5;
+
+  --col-nba: #E63946;
+  --col-bil: #2196F3;
+  --col-col: #4CAF50;
+  --col-wl:  #FF9800;
+  --col-321: #9C27B0;
+
+  --serif: Georgia, 'Times New Roman', serif;
+  --sans:  'Inter', system-ui, -apple-system, sans-serif;
+  --mono:  'Courier New', monospace;
+
+  --max-w: 1100px;
+  --gutter: clamp(1rem, 4vw, 3rem);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--sans);
+  background: var(--cream);
+  color: var(--dark);
+  line-height: 1.7;
+  font-size: 1.05rem;
+  overflow-x: hidden;
+}
+
+/* ── Typography ───────────────────────────────────────────────── */
+h1, h2, h3 { font-family: var(--serif); line-height: 1.15; }
+
+.section-label {
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 0.6rem;
+}
+
+.display-headline {
+  font-size: clamp(2.2rem, 5.5vw, 4.2rem);
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--dark);
+}
+
+.section-headline {
+  font-size: clamp(1.6rem, 3.5vw, 2.6rem);
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: var(--navy);
+}
+
+.prose {
+  max-width: 640px;
+  font-size: 1.08rem;
+  line-height: 1.75;
+  color: #2a2a2a;
+}
+
+.prose p { margin-bottom: 1.1rem; }
+
+.callout {
+  font-size: 1.35rem;
+  font-weight: 700;
+  font-family: var(--serif);
+  color: var(--navy);
+  border-left: 4px solid var(--red);
+  padding: 0.6rem 0 0.6rem 1.2rem;
+  margin: 1.5rem 0;
+  line-height: 1.35;
+}
+
+.stat-big {
+  font-size: clamp(3rem, 7vw, 5.5rem);
+  font-weight: 900;
+  font-family: var(--sans);
+  line-height: 1;
+  color: var(--red);
+}
+
+/* ── Layout ───────────────────────────────────────────────────── */
+.container {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+section { padding: clamp(3rem, 8vw, 6rem) 0; }
+
+section:nth-child(odd)  { background: var(--cream); }
+section:nth-child(even) { background: var(--white); }
+
+/* ── Section 1: Hook ─────────────────────────────────────────── */
+#hook {
+  background: var(--navy);
+  color: var(--white);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(2rem, 6vw, 5rem) var(--gutter);
+  position: relative;
+  overflow: hidden;
+}
+
+#hook::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 70% 50%, rgba(200,16,46,0.15) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.hook-eyebrow {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 1.5rem;
+}
+
+.hook-headline {
+  font-family: var(--serif);
+  font-size: clamp(2.8rem, 7vw, 6rem);
+  font-weight: 700;
+  line-height: 1.08;
+  color: var(--white);
+  max-width: 850px;
+  margin-bottom: 1.8rem;
+}
+
+.hook-headline em {
+  font-style: italic;
+  color: var(--red);
+  text-shadow: 0 0 40px rgba(200,16,46,0.5);
+}
+
+.hook-sub {
+  font-size: clamp(1rem, 2.2vw, 1.3rem);
+  color: rgba(255,255,255,0.7);
+  max-width: 560px;
+  line-height: 1.6;
+  margin-bottom: 2.5rem;
+}
+
+.hook-stats {
+  display: flex;
+  gap: 2.5rem;
+  flex-wrap: wrap;
+}
+
+.hook-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.hook-stat-num {
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: var(--white);
+  line-height: 1;
+}
+
+.hook-stat-label {
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+}
+
+.scroll-cue {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  color: rgba(255,255,255,0.4);
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  animation: bob 2s ease-in-out infinite;
+}
+
+.scroll-cue svg { opacity: 0.5; }
+
+@keyframes bob {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50%       { transform: translateX(-50%) translateY(6px); }
+}
+
+/* ── Section 2: Draft Explainer ─────────────────────────────── */
+#draft-explainer { background: var(--white); }
+
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: start;
+}
+
+@media (max-width: 700px) { .two-col { grid-template-columns: 1fr; } }
+
+#lottery-canvas {
+  width: 100%;
+  aspect-ratio: 1 / 0.85;
+  background: transparent;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.lottery-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.8rem;
+}
+
+.legend-chip {
+  font-size: 0.72rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 99px;
+  background: #e8edf5;
+  color: var(--navy);
+  font-weight: 600;
+}
+
+/* ── Section 3: The Prize ────────────────────────────────────── */
+#the-prize { background: var(--navy); color: var(--white); }
+#the-prize .section-headline { color: var(--white); }
+#the-prize .prose { color: rgba(255,255,255,0.8); }
+
+.player-reveal {
+  position: relative;
+  margin: 2rem 0;
+}
+
+.silhouette-wrap {
+  display: flex;
+  align-items: flex-end;
+  gap: 3rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.player-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.player-card.visible {
+  opacity: 1;
+  transform: none;
+}
+
+.player-silhouette {
+  width: 90px;
+  height: 160px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 8px 8px 0 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.player-silhouette svg {
+  width: 100%;
+  height: 100%;
+}
+
+.player-silhouette.revealed {
+  background: rgba(200,16,46,0.2);
+  border: 2px solid var(--red);
+}
+
+.player-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  text-align: center;
+}
+
+.player-card.revealed .player-label { color: var(--red); }
+
+.pick-num {
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: var(--white);
+  font-family: var(--sans);
+}
+
+#pick-value-chart {
+  width: 100%;
+  height: 260px;
+  margin: 2rem 0;
+}
+
+/* ── Section 4: Balance Scale ────────────────────────────────── */
+#balance {
+  background: var(--cream);
+}
+
+.balance-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+@media (max-width: 700px) { .balance-wrap { grid-template-columns: 1fr; } }
+
+#scale-svg {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  display: block;
+  overflow: visible;
+}
+
+.scale-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  fill: var(--gray);
+}
+
+.slider-wrap {
+  margin: 1.5rem 0;
+}
+
+.slider-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: var(--gray);
+  margin-bottom: 0.4rem;
+}
+
+#prob-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  background: linear-gradient(to right, var(--red), #e0e0e0);
+  border-radius: 3px;
+  outline: none;
+  cursor: pointer;
+}
+
+#prob-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--navy);
+  border: 3px solid white;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  cursor: pointer;
+}
+
+.eu-display {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.eu-box {
+  padding: 1rem 1.2rem;
+  border-radius: 10px;
+  background: var(--panel);
+  text-align: center;
+  transition: all 0.4s ease;
+}
+
+.eu-box.winning {
+  background: var(--navy);
+  color: white;
+  transform: scale(1.04);
+  box-shadow: 0 4px 20px rgba(27,58,107,0.3);
+}
+
+.eu-box-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gray);
+  margin-bottom: 0.4rem;
+}
+
+.eu-box.winning .eu-box-label { color: rgba(255,255,255,0.6); }
+
+.eu-box-value {
+  font-size: 2rem;
+  font-weight: 900;
+  font-family: var(--sans);
+  color: var(--navy);
+  line-height: 1;
+}
+
+.eu-box.winning .eu-box-value { color: var(--red); }
+
+.tipping-banner {
+  margin-top: 1.5rem;
+  padding: 1rem 1.4rem;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+  background: #e8f5e9;
+  color: #2e7d32;
+  transition: background 0.4s ease, color 0.4s ease;
+}
+
+.tipping-banner.tanking {
+  background: #fde8ea;
+  color: var(--red);
+}
+
+.tipping-banner.competing {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+/* ── Section 5: Season Trajectory ───────────────────────────── */
+#trajectory { background: var(--white); }
+
+#trajectory-chart {
+  width: 100%;
+  height: 280px;
+  margin: 2rem 0;
+}
+
+.trajectory-tooltip {
+  position: fixed;
+  background: var(--navy);
+  color: white;
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  max-width: 260px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s;
+  z-index: 1000;
+  line-height: 1.45;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+
+.trajectory-tooltip.visible { opacity: 1; }
+
+.tt-effort {
+  display: inline-block;
+  margin-bottom: 0.3rem;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.tt-tanking { color: var(--red); }
+.tt-competing { color: #4ade80; }
+
+/* ── Section 6: Reform Explorer ─────────────────────────────── */
+#reforms {
+  background: var(--navy);
+  color: white;
+}
+
+#reforms .section-headline { color: white; }
+#reforms .prose { color: rgba(255,255,255,0.75); max-width: 700px; }
+
+.reform-tabs {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin: 2rem 0 1.5rem;
+}
+
+.reform-tab {
+  padding: 0.55rem 1.1rem;
+  border-radius: 99px;
+  border: 2px solid rgba(255,255,255,0.2);
+  background: transparent;
+  color: rgba(255,255,255,0.6);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: var(--sans);
+}
+
+.reform-tab:hover {
+  border-color: rgba(255,255,255,0.5);
+  color: white;
+}
+
+.reform-tab.active {
+  border-color: var(--tab-color, white);
+  background: var(--tab-color, white);
+  color: white;
+}
+
+.reform-panel {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: start;
+  background: rgba(255,255,255,0.05);
+  border-radius: 16px;
+  padding: 2rem;
+  min-height: 340px;
+}
+
+@media (max-width: 700px) { .reform-panel { grid-template-columns: 1fr; } }
+
+.reform-description {
+  display: none;
+}
+
+.reform-description.active { display: block; }
+
+.reform-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 0.8rem;
+  color: white;
+}
+
+.reform-body {
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: rgba(255,255,255,0.75);
+  margin-bottom: 1.2rem;
+}
+
+.reform-key {
+  display: inline-block;
+  padding: 0.45rem 1rem;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.1);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: white;
+  border-left: 3px solid var(--tab-color, var(--red));
+}
+
+.reform-diagram { display: none; }
+.reform-diagram.active { display: block; }
+
+.reform-diagram svg, .reform-diagram canvas {
+  width: 100%;
+  max-width: 420px;
+  height: auto;
+}
+
+/* ── Section 7: Scrollytelling ──────────────────────────────── */
+#results {
+  background: var(--cream);
+  padding: clamp(2rem, 5vw, 4rem) 0;
+}
+
+.sticky-container {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  align-items: start;
+}
+
+@media (max-width: 700px) {
+  .sticky-container { grid-template-columns: 1fr; }
+  .sticky-graphic { position: relative; top: 0; height: auto; margin-bottom: 2rem; }
+}
+
+.sticky-graphic {
+  position: sticky;
+  top: 8vh;
+  height: 84vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 2rem 1rem 1rem;
+}
+
+.sticky-graphic svg { width: 100%; height: 100%; overflow: visible; }
+
+.scroll-steps {
+  padding: 0 var(--gutter);
+}
+
+.step {
+  min-height: 65vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2rem 0;
+  opacity: 0.35;
+  transition: opacity 0.4s;
+}
+
+.step.is-active { opacity: 1; }
+
+.step-number {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--lgray);
+  margin-bottom: 0.4rem;
+}
+
+.step-headline {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 0.7rem;
+  font-family: var(--serif);
+}
+
+.step-body {
+  font-size: 0.95rem;
+  color: var(--gray);
+  line-height: 1.7;
+  max-width: 400px;
+}
+
+.step-rate {
+  font-size: 3rem;
+  font-weight: 900;
+  line-height: 1;
+  margin: 0.5rem 0;
+}
+
+/* ── Section 8: Draft Fairness ──────────────────────────────── */
+#fairness { background: var(--white); }
+
+.fairness-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  margin-top: 2rem;
+}
+
+@media (max-width: 700px) { .fairness-grid { grid-template-columns: 1fr; } }
+
+#tau-chart, #efficiency-chart {
+  width: 100%;
+  height: 300px;
+}
+
+.chart-title {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gray);
+  margin-bottom: 0.8rem;
+}
+
+.metric-explainer {
+  background: var(--panel);
+  border-radius: 10px;
+  padding: 1rem 1.2rem;
+  font-size: 0.85rem;
+  color: var(--gray);
+  margin-top: 0.8rem;
+  line-height: 1.55;
+}
+
+.metric-explainer strong { color: var(--navy); }
+
+/* ── Section 9: LLM ─────────────────────────────────────────── */
+#llm { background: var(--cream); }
+
+.llm-sticky-container {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  align-items: start;
+}
+
+@media (max-width: 700px) { .llm-sticky-container { grid-template-columns: 1fr; } }
+
+.llm-sticky-graphic {
+  position: sticky;
+  top: 8vh;
+  height: 84vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 2rem 1rem 1rem;
+}
+
+.llm-sticky-graphic svg { width: 100%; height: 100%; overflow: visible; }
+
+#llm-chart { width: 100%; height: 100%; overflow: visible; }
+
+/* ── Section 10: Conclusion ─────────────────────────────────── */
+#conclusion { background: var(--navy); color: white; }
+#conclusion .section-headline { color: white; }
+
+.rec-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+}
+
+@media (max-width: 700px) { .rec-grid { grid-template-columns: 1fr; } }
+
+.rec-card {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.rec-header {
+  padding: 0.8rem 1.2rem;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: white;
+}
+
+.rec-body {
+  background: rgba(255,255,255,0.07);
+  padding: 1.2rem;
+  font-size: 0.88rem;
+  line-height: 1.65;
+  color: rgba(255,255,255,0.75);
+}
+
+.rec-body ul {
+  list-style: none;
+  padding: 0;
+}
+
+.rec-body li {
+  padding: 0.3rem 0;
+  padding-left: 1.2rem;
+  position: relative;
+}
+
+.rec-body li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: rgba(255,255,255,0.4);
+}
+
+.rec-stat {
+  margin-top: 1rem;
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: white;
+}
+
+.rec-stat span {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  margin-top: 0.2rem;
+}
+
+.final-takeaway {
+  margin-top: 3rem;
+  padding: 1.8rem;
+  border-radius: 14px;
+  background: rgba(200,16,46,0.2);
+  border: 1px solid rgba(200,16,46,0.4);
+  font-family: var(--serif);
+  font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+  font-style: italic;
+  color: white;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.attribution {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.35);
+  line-height: 1.6;
+}
+
+/* ── Utility ──────────────────────────────────────────────────── */
+.sr-only {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; overflow: hidden; clip: rect(0,0,0,0);
+  white-space: nowrap; border: 0;
+}
+
+.visually-hidden { visibility: hidden; }
+
+svg text { font-family: var(--sans); }
+
+/* Axis styling shared */
+.axis-label {
+  font-size: 11px;
+  fill: var(--gray);
+}
+
+.tick line { stroke: #ddd; }
+.domain { stroke: #ddd; }
+
+/* ── Trading Card (Section 3: The Prize) ─────────────────────── */
+.trading-card {
+  background: linear-gradient(160deg, #1a3a6e 0%, #0d2040 100%);
+  border: 3px solid #C8A55E;
+  border-radius: 16px;
+  width: 200px;
+  min-width: 180px;
+  padding: 1.2rem 1rem 1rem;
+  position: relative;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(200,165,94,0.25);
+  flex-shrink: 0;
+}
+
+.card-badge {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #C8A55E;
+  color: var(--navy);
+  font-weight: 900;
+  font-size: 1rem;
+  padding: 0.15rem 0.9rem;
+  border-radius: 99px;
+  font-family: var(--sans);
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.card-image-wrap {
+  width: 100%;
+  aspect-ratio: 2/3;
+  background: rgba(255,255,255,0.05);
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 0.8rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(200,165,94,0.2);
+}
+
+.card-image-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-placeholder {
+  color: rgba(255,255,255,0.12);
+  font-size: 3.5rem;
+  text-align: center;
+  line-height: 1;
+}
+
+.card-player-name {
+  font-family: var(--serif);
+  font-size: 1rem;
+  font-weight: 700;
+  color: #C8A55E;
+  text-align: center;
+  letter-spacing: 0.04em;
+  min-height: 1.4em;
+}
+
+/* Center the card within the sticky graphic */
+#the-prize .sticky-graphic > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ── Prize section sticky step text ────────────────────────── */
+#the-prize .step-headline { color: rgba(255,255,255,0.95); }
+#the-prize .step-number   { color: rgba(255,255,255,0.35); }
+#the-prize .step-body     { color: rgba(255,255,255,0.65); }
+#the-prize .step          { opacity: 0.4; }
+#the-prize .step.is-active{ opacity: 1; }
+
+/* ── Lottery steps (Section 2 dark panel) ───────────────────── */
+#draft-explainer .step-headline { color: var(--navy); }
+#draft-explainer .step-body     { color: var(--gray); }
+
+/* ── Second Slider (Pick Value) ──────────────────────────────── */
+#pick-value-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  background: linear-gradient(to right, var(--navy), #e0e0e0);
+  border-radius: 3px;
+  outline: none;
+  cursor: pointer;
+  margin-top: 0.2rem;
+}
+
+#pick-value-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--red);
+  border: 3px solid white;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  cursor: pointer;
+}
+
+#pick-value-slider::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--red);
+  border: 3px solid white;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  cursor: pointer;
+}
+
+.slider-callout {
+  margin-top: 0.75rem;
+  padding: 0.7rem 1rem;
+  background: #fff8e1;
+  border-radius: 8px;
+  border-left: 3px solid #F9A825;
+  font-size: 0.83rem;
+  color: #5D4037;
+  line-height: 1.5;
+}
+
+/* ── Reform Why Block ─────────────────────────────────────────── */
+.reform-why {
+  margin: 0.75rem 0 1rem;
+  padding: 0.65rem 1rem;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.08);
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.9);
+  border-left: 3px solid var(--tab-color, var(--red));
+  line-height: 1.5;
+}
+
+.reform-diagram-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 0.7rem;
+}
+
+/* ── Reasoning Quote (Trajectory Steps) ──────────────────────── */
+.reasoning-quote {
+  margin-top: 0.75rem;
+  padding: 0.8rem 1rem;
+  background: var(--panel);
+  border-radius: 8px;
+  border-left: 3px solid var(--navy);
+  font-size: 0.83rem;
+  font-style: italic;
+  color: var(--gray);
+  line-height: 1.55;
+  max-width: 400px;
+  min-height: 2.5em;
+}
+
+/* ── Conclusion Section (Reframe) ────────────────────────────── */
+.conclusion-banner {
+  background: rgba(200,165,94,0.12);
+  border: 1px solid rgba(200,165,94,0.35);
+  border-radius: 12px;
+  padding: 1.3rem 1.8rem;
+  margin-bottom: 2rem;
+  font-size: 1.05rem;
+  font-family: var(--serif);
+  font-style: italic;
+  color: white;
+  line-height: 1.55;
+}
+
+.conclusion-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+@media (max-width: 700px) { .conclusion-grid { grid-template-columns: 1fr; } }
+
+.conclusion-card {
+  border-radius: 12px;
+  padding: 1.4rem 1.6rem;
+  background: rgba(255,255,255,0.06);
+}
+
+.conclusion-support { border-top: 3px solid #66BB6A; }
+.conclusion-worry   { border-top: 3px solid var(--red); }
+
+.conclusion-card-header {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 0.8rem;
+  font-family: var(--serif);
+  color: rgba(255,255,255,0.9);
+}
+
+.conclusion-support .conclusion-card-header { color: #A5D6A7; }
+.conclusion-worry   .conclusion-card-header { color: #EF9A9A; }
+
+.conclusion-card-body {
+  font-size: 0.88rem;
+  color: rgba(255,255,255,0.72);
+  line-height: 1.7;
+}
+
+.conclusion-card-body p { margin-bottom: 0.5rem; }
+
+.conclusion-stat {
+  font-size: 1.9rem;
+  font-weight: 900;
+  color: white;
+  margin-top: 0.9rem;
+  line-height: 1;
+}
+
+.conclusion-stat span {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.4);
+  margin-top: 0.25rem;
+}
+
+.conclusion-future {
+  padding: 1.4rem 1.8rem;
+  background: rgba(255,255,255,0.05);
+  border-radius: 12px;
+  font-size: 0.95rem;
+  line-height: 1.75;
+  color: rgba(255,255,255,0.75);
+}
+
+/* ── Bibliography Section ────────────────────────────────────── */
+#bibliography {
+  background: #0d1117;
+  color: rgba(255,255,255,0.75);
+}
+
+#bibliography .section-label  { color: rgba(200,16,46,0.8); }
+#bibliography .section-headline{ color: white; }
+#bibliography .prose           { color: rgba(255,255,255,0.55); }
+
+.bib-list {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.bib-item {
+  padding: 1rem 1.4rem;
+  background: rgba(255,255,255,0.04);
+  border-radius: 10px;
+  border-left: 3px solid var(--red);
+  transition: background 0.2s;
+}
+
+.bib-item:hover { background: rgba(255,255,255,0.08); }
+
+.bib-title {
+  font-weight: 700;
+  font-size: 0.93rem;
+  color: white;
+  margin-bottom: 0.2rem;
+}
+
+.bib-desc {
+  font-size: 0.83rem;
+  color: rgba(255,255,255,0.48);
+  line-height: 1.55;
+}
+
+.bib-link {
+  display: inline-block;
+  margin-top: 0.35rem;
+  font-size: 0.76rem;
+  color: rgba(200,16,46,0.85);
+  text-decoration: none;
+  letter-spacing: 0.03em;
+}
+
+.bib-link:hover {
+  color: var(--red);
+  text-decoration: underline;
+}
+
+/* ── Fairness section scrollytelling ─────────────────────────── */
+#fairness .step-headline { color: var(--navy); }
+#fairness .step-body     { color: var(--gray); }
+#fairness .sticky-graphic { padding: 1rem 2rem 1rem 0; }
+
+/* ── Trajectory section scrollytelling ───────────────────────── */
+#trajectory .step-headline { color: var(--navy); }
+#trajectory .step-body     { color: var(--gray); }
+
+/* ── Lottery section: no panel background ──────────────────────── */
+#draft-explainer .sticky-graphic {
+  background: transparent;
+}
+
+/* ── Responsive: reduce step min-height on mobile ────────────── */
+@media (max-width: 700px) {
+  .step { min-height: 50vh; }
+  .trading-card { width: 160px; min-width: 140px; }
+}
+
+/* ── Reform section: ensure diagram label visible ────────────── */
+.reform-diagram.active .reform-diagram-label { display: block; }
+
+/* ── Chart toggle (Section 3 pick value) ─────────────────────── */
+.chart-toggle {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+.chart-toggle-btn {
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.3rem 0.85rem;
+  border: 1.5px solid rgba(255,255,255,0.25);
+  border-radius: 999px;
+  background: transparent;
+  color: rgba(255,255,255,0.55);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.chart-toggle-btn:hover {
+  border-color: rgba(255,255,255,0.5);
+  color: rgba(255,255,255,0.85);
+}
+.chart-toggle-btn.active {
+  background: var(--red);
+  border-color: var(--red);
+  color: #fff;
+}
+
+/* ── Bibliography type chips ──────────────────────────────────── */
+.bib-type-tag {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.15rem 0.55rem;
+  border-radius: 4px;
+  margin-bottom: 0.35rem;
+}
+.bib-type-paper   { background: rgba(200,16,46,0.12);  color: var(--red);   border: 1px solid rgba(200,16,46,0.3);  }
+.bib-type-code    { background: rgba(27,58,107,0.12);  color: var(--navy);  border: 1px solid rgba(27,58,107,0.3);  }
+.bib-type-proposal{ background: rgba(33,150,243,0.12); color: #2196F3;      border: 1px solid rgba(33,150,243,0.3); }
+.bib-type-empirical{ background: rgba(76,175,80,0.12); color: #388e3c;      border: 1px solid rgba(76,175,80,0.3);  }
+
+/* ── Mobile: 480px breakpoint ─────────────────────────────────── */
+@media (max-width: 480px) {
+  .sticky-container { grid-template-columns: 1fr; }
+  .sticky-graphic { position: relative; top: 0; height: auto; min-height: 50vw; }
+  .trading-card { width: 140px; }
+  .hook-headline { font-size: 2rem; }
+  .balance-wrap { grid-template-columns: 1fr; }
+  .reform-panel { grid-template-columns: 1fr; }
+  .conclusion-grid { grid-template-columns: 1fr; }
+}
+.reform-diagram          .reform-diagram-label { display: none; }
+
+/* ── Lottery canvas: allow overflow for fall animation ─────────── */
+#lottery-canvas {
+  overflow: visible;
+}
+
+/* ── Trajectory: full-width chart, text cards overlaid on right ── */
+#trajectory > .sticky-container {
+  display: block;
+  position: relative;
+}
+#trajectory .sticky-graphic {
+  width: 100%;
+  padding: 1rem 0;
+}
+#trajectory .scroll-steps {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-top: -48vh;
+  padding-right: clamp(1rem, 3vw, 2.5rem);
+  padding-bottom: 8vh;
+}
+#trajectory .scroll-steps .step {
+  width: clamp(260px, 34%, 360px);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-radius: 12px;
+  padding: 1.4rem 1.5rem;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+  min-height: unset;
+}
+
+/* ── Focus-visible: keyboard accessibility ──────────────────────── */
+:focus-visible {
+  outline: 3px solid var(--red);
+  outline-offset: 3px;
+}
+button:focus-visible, input:focus-visible, a:focus-visible {
+  outline: 3px solid var(--red);
+  outline-offset: 3px;
+}
+
+/* ── Raise low-contrast text: attribution + step labels ────────── */
+.attribution { color: rgba(255,255,255,0.55); }
+.hook-stat-label { color: rgba(255,255,255,0.6); }
+.hook-eyebrow    { color: rgba(255,255,255,0.65); }
+
+/* ── Slightly more restrained red ──────────────────────────────── */
+:root { --red: #B91C35; }
+
+/* ── Card area: single or side-by-side cards ──────────────────── */
+#card-area {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  align-items: flex-start;
+}
+#card-area.two-cards .trading-card {
+  width: 130px;
+}
+#card-area.two-cards .trading-card .card-image-wrap {
+  height: 150px;
+}

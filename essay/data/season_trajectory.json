@@ -1,0 +1,1372 @@
+{
+  "team_name": "Bucks",
+  "season": 1,
+  "snapshots": [
+    {
+      "rank": 23,
+      "wins": 0,
+      "losses": 2,
+      "total_games": 2
+    },
+    {
+      "rank": 25,
+      "wins": 0,
+      "losses": 2,
+      "total_games": 2
+    },
+    {
+      "rank": 14,
+      "wins": 1,
+      "losses": 3,
+      "total_games": 4
+    },
+    {
+      "rank": 12,
+      "wins": 2,
+      "losses": 3,
+      "total_games": 5
+    },
+    {
+      "rank": 14,
+      "wins": 2,
+      "losses": 4,
+      "total_games": 6
+    },
+    {
+      "rank": 16,
+      "wins": 2,
+      "losses": 5,
+      "total_games": 7
+    },
+    {
+      "rank": 8,
+      "wins": 3,
+      "losses": 5,
+      "total_games": 8
+    },
+    {
+      "rank": 13,
+      "wins": 3,
+      "losses": 5,
+      "total_games": 8
+    },
+    {
+      "rank": 6,
+      "wins": 4,
+      "losses": 6,
+      "total_games": 10
+    },
+    {
+      "rank": 13,
+      "wins": 4,
+      "losses": 6,
+      "total_games": 10
+    },
+    {
+      "rank": 15,
+      "wins": 4,
+      "losses": 6,
+      "total_games": 10
+    },
+    {
+      "rank": 9,
+      "wins": 5,
+      "losses": 7,
+      "total_games": 12
+    },
+    {
+      "rank": 11,
+      "wins": 5,
+      "losses": 9,
+      "total_games": 14
+    },
+    {
+      "rank": 14,
+      "wins": 5,
+      "losses": 9,
+      "total_games": 14
+    },
+    {
+      "rank": 16,
+      "wins": 5,
+      "losses": 9,
+      "total_games": 14
+    },
+    {
+      "rank": 16,
+      "wins": 5,
+      "losses": 9,
+      "total_games": 14
+    },
+    {
+      "rank": 18,
+      "wins": 5,
+      "losses": 9,
+      "total_games": 14
+    },
+    {
+      "rank": 21,
+      "wins": 5,
+      "losses": 10,
+      "total_games": 15
+    },
+    {
+      "rank": 17,
+      "wins": 6,
+      "losses": 11,
+      "total_games": 17
+    },
+    {
+      "rank": 18,
+      "wins": 6,
+      "losses": 11,
+      "total_games": 17
+    },
+    {
+      "rank": 20,
+      "wins": 6,
+      "losses": 11,
+      "total_games": 17
+    },
+    {
+      "rank": 21,
+      "wins": 6,
+      "losses": 11,
+      "total_games": 17
+    },
+    {
+      "rank": 22,
+      "wins": 6,
+      "losses": 11,
+      "total_games": 17
+    },
+    {
+      "rank": 26,
+      "wins": 6,
+      "losses": 11,
+      "total_games": 17
+    },
+    {
+      "rank": 27,
+      "wins": 6,
+      "losses": 11,
+      "total_games": 17
+    },
+    {
+      "rank": 27,
+      "wins": 6,
+      "losses": 11,
+      "total_games": 17
+    },
+    {
+      "rank": 27,
+      "wins": 6,
+      "losses": 12,
+      "total_games": 18
+    },
+    {
+      "rank": 19,
+      "wins": 8,
+      "losses": 13,
+      "total_games": 21
+    },
+    {
+      "rank": 17,
+      "wins": 9,
+      "losses": 13,
+      "total_games": 22
+    },
+    {
+      "rank": 15,
+      "wins": 10,
+      "losses": 13,
+      "total_games": 23
+    },
+    {
+      "rank": 16,
+      "wins": 10,
+      "losses": 13,
+      "total_games": 23
+    },
+    {
+      "rank": 16,
+      "wins": 10,
+      "losses": 15,
+      "total_games": 25
+    },
+    {
+      "rank": 16,
+      "wins": 11,
+      "losses": 16,
+      "total_games": 27
+    },
+    {
+      "rank": 16,
+      "wins": 11,
+      "losses": 16,
+      "total_games": 27
+    },
+    {
+      "rank": 16,
+      "wins": 11,
+      "losses": 16,
+      "total_games": 27
+    },
+    {
+      "rank": 14,
+      "wins": 12,
+      "losses": 16,
+      "total_games": 28
+    },
+    {
+      "rank": 15,
+      "wins": 12,
+      "losses": 16,
+      "total_games": 28
+    },
+    {
+      "rank": 15,
+      "wins": 12,
+      "losses": 16,
+      "total_games": 28
+    },
+    {
+      "rank": 18,
+      "wins": 12,
+      "losses": 16,
+      "total_games": 28
+    },
+    {
+      "rank": 15,
+      "wins": 13,
+      "losses": 16,
+      "total_games": 29
+    },
+    {
+      "rank": 14,
+      "wins": 14,
+      "losses": 17,
+      "total_games": 31
+    },
+    {
+      "rank": 14,
+      "wins": 15,
+      "losses": 17,
+      "total_games": 32
+    },
+    {
+      "rank": 15,
+      "wins": 15,
+      "losses": 18,
+      "total_games": 33
+    },
+    {
+      "rank": 13,
+      "wins": 16,
+      "losses": 18,
+      "total_games": 34
+    },
+    {
+      "rank": 15,
+      "wins": 16,
+      "losses": 18,
+      "total_games": 34
+    },
+    {
+      "rank": 15,
+      "wins": 16,
+      "losses": 19,
+      "total_games": 35
+    },
+    {
+      "rank": 15,
+      "wins": 16,
+      "losses": 19,
+      "total_games": 35
+    },
+    {
+      "rank": 15,
+      "wins": 16,
+      "losses": 19,
+      "total_games": 35
+    },
+    {
+      "rank": 15,
+      "wins": 16,
+      "losses": 19,
+      "total_games": 35
+    },
+    {
+      "rank": 18,
+      "wins": 16,
+      "losses": 19,
+      "total_games": 35
+    },
+    {
+      "rank": 18,
+      "wins": 16,
+      "losses": 20,
+      "total_games": 36
+    },
+    {
+      "rank": 19,
+      "wins": 16,
+      "losses": 20,
+      "total_games": 36
+    },
+    {
+      "rank": 20,
+      "wins": 16,
+      "losses": 20,
+      "total_games": 36
+    },
+    {
+      "rank": 19,
+      "wins": 17,
+      "losses": 21,
+      "total_games": 38
+    },
+    {
+      "rank": 19,
+      "wins": 17,
+      "losses": 23,
+      "total_games": 40
+    },
+    {
+      "rank": 19,
+      "wins": 17,
+      "losses": 24,
+      "total_games": 41
+    },
+    {
+      "rank": 20,
+      "wins": 17,
+      "losses": 24,
+      "total_games": 41
+    },
+    {
+      "rank": 21,
+      "wins": 17,
+      "losses": 24,
+      "total_games": 41
+    },
+    {
+      "rank": 21,
+      "wins": 17,
+      "losses": 25,
+      "total_games": 42
+    },
+    {
+      "rank": 23,
+      "wins": 17,
+      "losses": 25,
+      "total_games": 42
+    },
+    {
+      "rank": 23,
+      "wins": 17,
+      "losses": 26,
+      "total_games": 43
+    },
+    {
+      "rank": 23,
+      "wins": 17,
+      "losses": 27,
+      "total_games": 44
+    },
+    {
+      "rank": 23,
+      "wins": 17,
+      "losses": 27,
+      "total_games": 44
+    },
+    {
+      "rank": 23,
+      "wins": 17,
+      "losses": 27,
+      "total_games": 44
+    },
+    {
+      "rank": 23,
+      "wins": 18,
+      "losses": 27,
+      "total_games": 45
+    },
+    {
+      "rank": 23,
+      "wins": 18,
+      "losses": 27,
+      "total_games": 45
+    },
+    {
+      "rank": 23,
+      "wins": 18,
+      "losses": 29,
+      "total_games": 47
+    },
+    {
+      "rank": 23,
+      "wins": 18,
+      "losses": 29,
+      "total_games": 47
+    },
+    {
+      "rank": 24,
+      "wins": 18,
+      "losses": 29,
+      "total_games": 47
+    },
+    {
+      "rank": 23,
+      "wins": 19,
+      "losses": 29,
+      "total_games": 48
+    },
+    {
+      "rank": 22,
+      "wins": 20,
+      "losses": 31,
+      "total_games": 51
+    },
+    {
+      "rank": 23,
+      "wins": 20,
+      "losses": 31,
+      "total_games": 51
+    },
+    {
+      "rank": 20,
+      "wins": 21,
+      "losses": 31,
+      "total_games": 52
+    },
+    {
+      "rank": 21,
+      "wins": 21,
+      "losses": 33,
+      "total_games": 54
+    },
+    {
+      "rank": 21,
+      "wins": 21,
+      "losses": 34,
+      "total_games": 55
+    },
+    {
+      "rank": 21,
+      "wins": 21,
+      "losses": 34,
+      "total_games": 55
+    },
+    {
+      "rank": 21,
+      "wins": 21,
+      "losses": 35,
+      "total_games": 56
+    },
+    {
+      "rank": 22,
+      "wins": 21,
+      "losses": 35,
+      "total_games": 56
+    },
+    {
+      "rank": 22,
+      "wins": 21,
+      "losses": 36,
+      "total_games": 57
+    },
+    {
+      "rank": 22,
+      "wins": 21,
+      "losses": 37,
+      "total_games": 58
+    },
+    {
+      "rank": 22,
+      "wins": 22,
+      "losses": 38,
+      "total_games": 60
+    },
+    {
+      "rank": 22,
+      "wins": 22,
+      "losses": 38,
+      "total_games": 60
+    },
+    {
+      "rank": 22,
+      "wins": 22,
+      "losses": 38,
+      "total_games": 60
+    },
+    {
+      "rank": 22,
+      "wins": 22,
+      "losses": 38,
+      "total_games": 60
+    },
+    {
+      "rank": 22,
+      "wins": 23,
+      "losses": 38,
+      "total_games": 61
+    },
+    {
+      "rank": 22,
+      "wins": 23,
+      "losses": 39,
+      "total_games": 62
+    },
+    {
+      "rank": 22,
+      "wins": 24,
+      "losses": 39,
+      "total_games": 63
+    },
+    {
+      "rank": 21,
+      "wins": 25,
+      "losses": 39,
+      "total_games": 64
+    },
+    {
+      "rank": 21,
+      "wins": 25,
+      "losses": 40,
+      "total_games": 65
+    },
+    {
+      "rank": 21,
+      "wins": 25,
+      "losses": 40,
+      "total_games": 65
+    },
+    {
+      "rank": 21,
+      "wins": 25,
+      "losses": 40,
+      "total_games": 65
+    },
+    {
+      "rank": 21,
+      "wins": 25,
+      "losses": 41,
+      "total_games": 66
+    },
+    {
+      "rank": 21,
+      "wins": 25,
+      "losses": 42,
+      "total_games": 67
+    },
+    {
+      "rank": 21,
+      "wins": 25,
+      "losses": 43,
+      "total_games": 68
+    },
+    {
+      "rank": 21,
+      "wins": 25,
+      "losses": 44,
+      "total_games": 69
+    },
+    {
+      "rank": 22,
+      "wins": 25,
+      "losses": 44,
+      "total_games": 69
+    },
+    {
+      "rank": 24,
+      "wins": 25,
+      "losses": 44,
+      "total_games": 69
+    },
+    {
+      "rank": 24,
+      "wins": 25,
+      "losses": 44,
+      "total_games": 69
+    },
+    {
+      "rank": 24,
+      "wins": 25,
+      "losses": 44,
+      "total_games": 69
+    },
+    {
+      "rank": 24,
+      "wins": 25,
+      "losses": 46,
+      "total_games": 71
+    },
+    {
+      "rank": 24,
+      "wins": 25,
+      "losses": 47,
+      "total_games": 72
+    },
+    {
+      "rank": 24,
+      "wins": 25,
+      "losses": 47,
+      "total_games": 72
+    },
+    {
+      "rank": 24,
+      "wins": 26,
+      "losses": 47,
+      "total_games": 73
+    },
+    {
+      "rank": 24,
+      "wins": 26,
+      "losses": 48,
+      "total_games": 74
+    },
+    {
+      "rank": 24,
+      "wins": 26,
+      "losses": 48,
+      "total_games": 74
+    },
+    {
+      "rank": 24,
+      "wins": 26,
+      "losses": 48,
+      "total_games": 74
+    },
+    {
+      "rank": 24,
+      "wins": 26,
+      "losses": 49,
+      "total_games": 75
+    },
+    {
+      "rank": 24,
+      "wins": 26,
+      "losses": 49,
+      "total_games": 75
+    },
+    {
+      "rank": 25,
+      "wins": 26,
+      "losses": 49,
+      "total_games": 75
+    },
+    {
+      "rank": 25,
+      "wins": 26,
+      "losses": 49,
+      "total_games": 75
+    },
+    {
+      "rank": 25,
+      "wins": 26,
+      "losses": 49,
+      "total_games": 75
+    },
+    {
+      "rank": 25,
+      "wins": 26,
+      "losses": 50,
+      "total_games": 76
+    },
+    {
+      "rank": 26,
+      "wins": 26,
+      "losses": 50,
+      "total_games": 76
+    },
+    {
+      "rank": 28,
+      "wins": 26,
+      "losses": 51,
+      "total_games": 77
+    },
+    {
+      "rank": 28,
+      "wins": 26,
+      "losses": 52,
+      "total_games": 78
+    },
+    {
+      "rank": 29,
+      "wins": 26,
+      "losses": 52,
+      "total_games": 78
+    },
+    {
+      "rank": 27,
+      "wins": 27,
+      "losses": 52,
+      "total_games": 79
+    },
+    {
+      "rank": 28,
+      "wins": 27,
+      "losses": 52,
+      "total_games": 79
+    },
+    {
+      "rank": 28,
+      "wins": 27,
+      "losses": 52,
+      "total_games": 79
+    },
+    {
+      "rank": 30,
+      "wins": 27,
+      "losses": 52,
+      "total_games": 79
+    },
+    {
+      "rank": 30,
+      "wins": 27,
+      "losses": 52,
+      "total_games": 79
+    },
+    {
+      "rank": 30,
+      "wins": 27,
+      "losses": 52,
+      "total_games": 79
+    }
+  ],
+  "decisions": [
+    {
+      "games_completed": 2,
+      "total_games": 2,
+      "effort": 1.0,
+      "reasoning": "try (e=1.00, EU=103.4)",
+      "wins": 0,
+      "losses": 2,
+      "rank": 25,
+      "tanking": false
+    },
+    {
+      "games_completed": 4,
+      "total_games": 4,
+      "effort": 1.0,
+      "reasoning": "try (e=1.00, EU=106.1)",
+      "wins": 1,
+      "losses": 3,
+      "rank": 14,
+      "tanking": false
+    },
+    {
+      "games_completed": 5,
+      "total_games": 5,
+      "effort": 1.0,
+      "reasoning": "try (e=1.00, EU=112.7)",
+      "wins": 2,
+      "losses": 3,
+      "rank": 12,
+      "tanking": false
+    },
+    {
+      "games_completed": 6,
+      "total_games": 6,
+      "effort": 1.0,
+      "reasoning": "try (e=1.00, EU=103.4)",
+      "wins": 2,
+      "losses": 4,
+      "rank": 14,
+      "tanking": false
+    },
+    {
+      "games_completed": 7,
+      "total_games": 7,
+      "effort": 1.0,
+      "reasoning": "try (e=1.00, EU=91.8)",
+      "wins": 2,
+      "losses": 5,
+      "rank": 16,
+      "tanking": false
+    },
+    {
+      "games_completed": 8,
+      "total_games": 8,
+      "effort": 1.0,
+      "reasoning": "try (e=1.00, EU=103.2)",
+      "wins": 3,
+      "losses": 5,
+      "rank": 13,
+      "tanking": false
+    },
+    {
+      "games_completed": 10,
+      "total_games": 10,
+      "effort": 1.0,
+      "reasoning": "try (e=1.00, EU=98.3)",
+      "wins": 4,
+      "losses": 6,
+      "rank": 15,
+      "tanking": false
+    },
+    {
+      "games_completed": 12,
+      "total_games": 12,
+      "effort": 1.0,
+      "reasoning": "try (e=1.00, EU=98.6)",
+      "wins": 5,
+      "losses": 7,
+      "rank": 9,
+      "tanking": false
+    },
+    {
+      "games_completed": 14,
+      "total_games": 14,
+      "effort": 1.0,
+      "reasoning": "try (e=1.00, EU=79.8)",
+      "wins": 5,
+      "losses": 9,
+      "rank": 18,
+      "tanking": false
+    },
+    {
+      "games_completed": 15,
+      "total_games": 15,
+      "effort": 1.0,
+      "reasoning": "try (e=1.00, EU=75.7)",
+      "wins": 5,
+      "losses": 10,
+      "rank": 21,
+      "tanking": false
+    },
+    {
+      "games_completed": 17,
+      "total_games": 17,
+      "effort": 1.0,
+      "reasoning": "try (e=1.00, EU=60.8)",
+      "wins": 6,
+      "losses": 11,
+      "rank": 27,
+      "tanking": false
+    },
+    {
+      "games_completed": 18,
+      "total_games": 18,
+      "effort": 1.0,
+      "reasoning": "try (e=1.00, EU=55.1)",
+      "wins": 6,
+      "losses": 12,
+      "rank": 27,
+      "tanking": false
+    },
+    {
+      "games_completed": 21,
+      "total_games": 21,
+      "effort": 1.0,
+      "reasoning": "try (e=1.00, EU=62.4)",
+      "wins": 8,
+      "losses": 13,
+      "rank": 19,
+      "tanking": false
+    },
+    {
+      "games_completed": 22,
+      "total_games": 22,
+      "effort": 1.0,
+      "reasoning": "try (e=1.00, EU=53.1)",
+      "wins": 9,
+      "losses": 13,
+      "rank": 17,
+      "tanking": false
+    },
+    {
+      "games_completed": 23,
+      "total_games": 23,
+      "effort": 1.0,
+      "reasoning": "try (e=1.00, EU=56.1)",
+      "wins": 10,
+      "losses": 13,
+      "rank": 16,
+      "tanking": false
+    },
+    {
+      "games_completed": 25,
+      "total_games": 25,
+      "effort": 1.0,
+      "reasoning": "try (e=1.00, EU=52.4)",
+      "wins": 10,
+      "losses": 15,
+      "rank": 16,
+      "tanking": false
+    },
+    {
+      "games_completed": 27,
+      "total_games": 27,
+      "effort": 1.0,
+      "reasoning": "try (e=1.00, EU=51.9)",
+      "wins": 11,
+      "losses": 16,
+      "rank": 16,
+      "tanking": false
+    },
+    {
+      "games_completed": 28,
+      "total_games": 28,
+      "effort": 1.0,
+      "reasoning": "try (e=1.00, EU=61.0)",
+      "wins": 12,
+      "losses": 16,
+      "rank": 18,
+      "tanking": false
+    },
+    {
+      "games_completed": 29,
+      "total_games": 29,
+      "effort": 1.0,
+      "reasoning": "try (e=1.00, EU=68.3)",
+      "wins": 13,
+      "losses": 16,
+      "rank": 15,
+      "tanking": false
+    },
+    {
+      "games_completed": 31,
+      "total_games": 31,
+      "effort": 1.0,
+      "reasoning": "try (e=1.00, EU=67.8)",
+      "wins": 14,
+      "losses": 17,
+      "rank": 14,
+      "tanking": false
+    },
+    {
+      "games_completed": 32,
+      "total_games": 32,
+      "effort": 1.0,
+      "reasoning": "try (e=1.00, EU=82.1)",
+      "wins": 15,
+      "losses": 17,
+      "rank": 14,
+      "tanking": false
+    },
+    {
+      "games_completed": 33,
+      "total_games": 33,
+      "effort": 1.0,
+      "reasoning": "try (e=1.00, EU=70.5)",
+      "wins": 15,
+      "losses": 18,
+      "rank": 15,
+      "tanking": false
+    },
+    {
+      "games_completed": 34,
+      "total_games": 34,
+      "effort": 1.0,
+      "reasoning": "try (e=1.00, EU=76.6)",
+      "wins": 16,
+      "losses": 18,
+      "rank": 15,
+      "tanking": false
+    },
+    {
+      "games_completed": 35,
+      "total_games": 35,
+      "effort": 1.0,
+      "reasoning": "try (e=1.00, EU=66.7)",
+      "wins": 16,
+      "losses": 19,
+      "rank": 18,
+      "tanking": false
+    },
+    {
+      "games_completed": 36,
+      "total_games": 36,
+      "effort": 1.0,
+      "reasoning": "try (e=1.00, EU=53.6)",
+      "wins": 16,
+      "losses": 20,
+      "rank": 20,
+      "tanking": false
+    },
+    {
+      "games_completed": 38,
+      "total_games": 38,
+      "effort": 1.0,
+      "reasoning": "try (e=1.00, EU=55.8)",
+      "wins": 17,
+      "losses": 21,
+      "rank": 19,
+      "tanking": false
+    },
+    {
+      "games_completed": 40,
+      "total_games": 40,
+      "effort": 0.0,
+      "reasoning": "tank (e=0.00, EU=42.7)",
+      "wins": 17,
+      "losses": 23,
+      "rank": 19,
+      "tanking": true
+    },
+    {
+      "games_completed": 41,
+      "total_games": 41,
+      "effort": 0.0,
+      "reasoning": "tank (e=0.00, EU=42.7)",
+      "wins": 17,
+      "losses": 24,
+      "rank": 21,
+      "tanking": true
+    },
+    {
+      "games_completed": 42,
+      "total_games": 42,
+      "effort": 0.0,
+      "reasoning": "tank (e=0.00, EU=42.7)",
+      "wins": 17,
+      "losses": 25,
+      "rank": 23,
+      "tanking": true
+    },
+    {
+      "games_completed": 43,
+      "total_games": 43,
+      "effort": 0.0,
+      "reasoning": "tank (e=0.00, EU=42.7)",
+      "wins": 17,
+      "losses": 26,
+      "rank": 23,
+      "tanking": true
+    },
+    {
+      "games_completed": 44,
+      "total_games": 44,
+      "effort": 0.0,
+      "reasoning": "tank (e=0.00, EU=42.7)",
+      "wins": 17,
+      "losses": 27,
+      "rank": 23,
+      "tanking": true
+    },
+    {
+      "games_completed": 45,
+      "total_games": 45,
+      "effort": 0.0,
+      "reasoning": "tank (e=0.00, EU=42.7)",
+      "wins": 18,
+      "losses": 27,
+      "rank": 23,
+      "tanking": true
+    },
+    {
+      "games_completed": 47,
+      "total_games": 47,
+      "effort": 0.0,
+      "reasoning": "tank (e=0.00, EU=42.7)",
+      "wins": 18,
+      "losses": 29,
+      "rank": 24,
+      "tanking": true
+    },
+    {
+      "games_completed": 48,
+      "total_games": 48,
+      "effort": 0.0,
+      "reasoning": "tank (e=0.00, EU=41.2)",
+      "wins": 19,
+      "losses": 29,
+      "rank": 23,
+      "tanking": true
+    },
+    {
+      "games_completed": 51,
+      "total_games": 51,
+      "effort": 0.0,
+      "reasoning": "tank (e=0.00, EU=41.2)",
+      "wins": 20,
+      "losses": 31,
+      "rank": 23,
+      "tanking": true
+    },
+    {
+      "games_completed": 52,
+      "total_games": 52,
+      "effort": 0.0,
+      "reasoning": "tank (e=0.00, EU=37.3)",
+      "wins": 21,
+      "losses": 31,
+      "rank": 20,
+      "tanking": true
+    },
+    {
+      "games_completed": 54,
+      "total_games": 54,
+      "effort": 0.0,
+      "reasoning": "tank (e=0.00, EU=41.2)",
+      "wins": 21,
+      "losses": 33,
+      "rank": 21,
+      "tanking": true
+    },
+    {
+      "games_completed": 55,
+      "total_games": 55,
+      "effort": 0.0,
+      "reasoning": "tank (e=0.00, EU=41.2)",
+      "wins": 21,
+      "losses": 34,
+      "rank": 21,
+      "tanking": true
+    },
+    {
+      "games_completed": 56,
+      "total_games": 56,
+      "effort": 0.0,
+      "reasoning": "tank (e=0.00, EU=41.2)",
+      "wins": 21,
+      "losses": 35,
+      "rank": 22,
+      "tanking": true
+    },
+    {
+      "games_completed": 57,
+      "total_games": 57,
+      "effort": 0.0,
+      "reasoning": "tank (e=0.00, EU=41.2)",
+      "wins": 21,
+      "losses": 36,
+      "rank": 22,
+      "tanking": true
+    },
+    {
+      "games_completed": 58,
+      "total_games": 58,
+      "effort": 0.0,
+      "reasoning": "tank (e=0.00, EU=41.2)",
+      "wins": 21,
+      "losses": 37,
+      "rank": 22,
+      "tanking": true
+    },
+    {
+      "games_completed": 60,
+      "total_games": 60,
+      "effort": 0.0,
+      "reasoning": "tank (e=0.00, EU=41.2)",
+      "wins": 22,
+      "losses": 38,
+      "rank": 22,
+      "tanking": true
+    },
+    {
+      "games_completed": 61,
+      "total_games": 61,
+      "effort": 0.0,
+      "reasoning": "tank (e=0.00, EU=41.2)",
+      "wins": 23,
+      "losses": 38,
+      "rank": 22,
+      "tanking": true
+    },
+    {
+      "games_completed": 62,
+      "total_games": 62,
+      "effort": 0.0,
+      "reasoning": "tank (e=0.00, EU=41.2)",
+      "wins": 23,
+      "losses": 39,
+      "rank": 22,
+      "tanking": true
+    },
+    {
+      "games_completed": 63,
+      "total_games": 63,
+      "effort": 0.0,
+      "reasoning": "tank (e=0.00, EU=37.3)",
+      "wins": 24,
+      "losses": 39,
+      "rank": 22,
+      "tanking": true
+    },
+    {
+      "games_completed": 64,
+      "total_games": 64,
+      "effort": 0.0,
+      "reasoning": "tank (e=0.00, EU=30.3)",
+      "wins": 25,
+      "losses": 39,
+      "rank": 21,
+      "tanking": true
+    },
+    {
+      "games_completed": 65,
+      "total_games": 65,
+      "effort": 0.0,
+      "reasoning": "tank (e=0.00, EU=37.3)",
+      "wins": 25,
+      "losses": 40,
+      "rank": 21,
+      "tanking": true
+    },
+    {
+      "games_completed": 66,
+      "total_games": 66,
+      "effort": 0.0,
+      "reasoning": "tank (e=0.00, EU=37.3)",
+      "wins": 25,
+      "losses": 41,
+      "rank": 21,
+      "tanking": true
+    },
+    {
+      "games_completed": 67,
+      "total_games": 67,
+      "effort": 0.0,
+      "reasoning": "tank (e=0.00, EU=40.2)",
+      "wins": 25,
+      "losses": 42,
+      "rank": 21,
+      "tanking": true
+    },
+    {
+      "games_completed": 68,
+      "total_games": 68,
+      "effort": 0.0,
+      "reasoning": "tank (e=0.00, EU=40.2)",
+      "wins": 25,
+      "losses": 43,
+      "rank": 21,
+      "tanking": true
+    },
+    {
+      "games_completed": 69,
+      "total_games": 69,
+      "effort": 0.0,
+      "reasoning": "tank (e=0.00, EU=40.2)",
+      "wins": 25,
+      "losses": 44,
+      "rank": 24,
+      "tanking": true
+    },
+    {
+      "games_completed": 71,
+      "total_games": 71,
+      "effort": 0.0,
+      "reasoning": "tank (e=0.00, EU=42.7)",
+      "wins": 25,
+      "losses": 46,
+      "rank": 24,
+      "tanking": true
+    },
+    {
+      "games_completed": 72,
+      "total_games": 72,
+      "effort": 0.0,
+      "reasoning": "tank (e=0.00, EU=42.7)",
+      "wins": 25,
+      "losses": 47,
+      "rank": 24,
+      "tanking": true
+    },
+    {
+      "games_completed": 73,
+      "total_games": 73,
+      "effort": 0.0,
+      "reasoning": "tank (e=0.00, EU=40.2)",
+      "wins": 26,
+      "losses": 47,
+      "rank": 24,
+      "tanking": true
+    },
+    {
+      "games_completed": 74,
+      "total_games": 74,
+      "effort": 0.0,
+      "reasoning": "tank (e=0.00, EU=41.2)",
+      "wins": 26,
+      "losses": 48,
+      "rank": 24,
+      "tanking": true
+    },
+    {
+      "games_completed": 75,
+      "total_games": 75,
+      "effort": 0.25,
+      "reasoning": "tank (e=0.25, EU=41.2)",
+      "wins": 26,
+      "losses": 49,
+      "rank": 25,
+      "tanking": true
+    },
+    {
+      "games_completed": 76,
+      "total_games": 76,
+      "effort": 0.0,
+      "reasoning": "tank (e=0.00, EU=41.2)",
+      "wins": 26,
+      "losses": 50,
+      "rank": 26,
+      "tanking": true
+    },
+    {
+      "games_completed": 77,
+      "total_games": 77,
+      "effort": 0.25,
+      "reasoning": "tank (e=0.25, EU=41.2)",
+      "wins": 26,
+      "losses": 51,
+      "rank": 28,
+      "tanking": true
+    },
+    {
+      "games_completed": 78,
+      "total_games": 78,
+      "effort": 1.0,
+      "reasoning": "try (e=1.00, EU=41.2)",
+      "wins": 26,
+      "losses": 52,
+      "rank": 29,
+      "tanking": false
+    },
+    {
+      "games_completed": 79,
+      "total_games": 79,
+      "effort": 0.25,
+      "reasoning": "tank (e=0.25, EU=41.2)",
+      "wins": 27,
+      "losses": 52,
+      "rank": 30,
+      "tanking": true
+    }
+  ],
+  "featured_decisions": [
+    {
+      "games_completed": 21,
+      "total_games": 21,
+      "effort": 1.0,
+      "reasoning": "try (e=1.00, EU=62.4)",
+      "wins": 8,
+      "losses": 13,
+      "rank": 19,
+      "tanking": false
+    },
+    {
+      "games_completed": 40,
+      "total_games": 40,
+      "effort": 0.0,
+      "reasoning": "tank (e=0.00, EU=42.7)",
+      "wins": 17,
+      "losses": 23,
+      "rank": 19,
+      "tanking": true
+    },
+    {
+      "games_completed": 58,
+      "total_games": 58,
+      "effort": 0.0,
+      "reasoning": "tank (e=0.00, EU=41.2)",
+      "wins": 21,
+      "losses": 37,
+      "rank": 22,
+      "tanking": true
+    }
+  ]
+}
