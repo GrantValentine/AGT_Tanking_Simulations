@@ -11,8 +11,12 @@
 </head>
 <body>
 <script>
-  if (window.innerWidth < 768 && !sessionStorage.getItem('stay-desktop'))
-    window.location.href = 'mobile/';
+  (function() {
+    var onPhone = /Mobi|Android|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    var narrow  = window.innerWidth < 768;
+    if ((onPhone || narrow) && !sessionStorage.getItem('stay-desktop'))
+      window.location.replace('mobile/');
+  })();
 </script>
 
 <!-- ══════════════════════════════════════════════════════════════
@@ -217,10 +221,10 @@
                 </div>
                 <div class="pc-grain"></div>
                 <div class="pc-inner-border"></div>
-                <div class="pc-flip-hint">Click to flip ↻</div>
               </div>
               <div class="pc-face pc-back" id="pc-back-1"></div>
             </div>
+            <div class="pc-flip-hint">Click to flip ↻</div>
           </div>
           <div class="pc-wrap" id="pc-wrap-2" style="display:none">
             <div class="pc-shell" id="player-card-2">
@@ -240,7 +244,6 @@
                 </div>
                 <div class="pc-grain"></div>
                 <div class="pc-inner-border"></div>
-                <div class="pc-flip-hint">Click to flip ↻</div>
               </div>
               <div class="pc-face pc-back" id="pc-back-2"></div>
             </div>

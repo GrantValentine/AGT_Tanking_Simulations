@@ -1294,7 +1294,9 @@ svg text { font-family: var(--sans); }
 /* ── Card wrap (tilt + hover) ────────────────────────────────────── */
 .pc-wrap {
   position: relative;
-  display: inline-block;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
   flex-shrink: 0;
   perspective: 800px;
   transform-style: preserve-3d;
@@ -1495,22 +1497,17 @@ svg text { font-family: var(--sans); }
 
 /* ── Front-face flip hint ────────────────────────────────────────── */
 .pc-flip-hint {
-  position: absolute;
-  bottom: 6px;
-  left: 0;
-  right: 0;
+  margin-top: 6px;
   text-align: center;
   font-size: 6.5px;
   font-weight: 500;
   letter-spacing: 0.04em;
   color: rgba(255,255,255,0.42);
-  text-shadow: 0 1px 3px rgba(0,0,0,0.55);
   pointer-events: none;
-  z-index: 10;
   transition: opacity 0.25s;
 }
 
-.pc-shell.flipped .pc-flip-hint { opacity: 0; }
+.pc-shell.flipped ~ .pc-flip-hint { opacity: 0; }
 
 /* ── Card back face content ──────────────────────────────────────── */
 .pc-back-inner {
