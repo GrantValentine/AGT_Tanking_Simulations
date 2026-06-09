@@ -1,0 +1,29 @@
+{
+  "mechanisms": [
+    "nba_lottery",
+    "bilevel",
+    "cola",
+    "weighted_loss_exp_hl20",
+    "nba_321_lottery"
+  ],
+  "labels": [
+    "NBA Lottery",
+    "Bilevel",
+    "COLA",
+    "Weighted Loss",
+    "NBA 3-2-1"
+  ],
+  "pick_ranges": [
+    "Pick 1",
+    "Picks 2-4",
+    "Picks 5-9",
+    "Picks 10-14"
+  ],
+  "distributions": {
+    "nba_lottery":            [0.0606, 0.2399, 0.3676, 0.3319],
+    "bilevel":                [0.0412, 0.2681, 0.3962, 0.2946],
+    "cola":                   [0.0619, 0.2010, 0.3763, 0.3609],
+    "weighted_loss_exp_hl20": [0.1000, 0.2250, 0.3964, 0.2786],
+    "nba_321_lottery":        [0.0714, 0.2500, 0.3797, 0.2989]
+  }
+}

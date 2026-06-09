@@ -95,6 +95,7 @@
       "name": "LeBron James",
       "peak_rating": 99,
       "first_rating": 87,
+      "mean_rating": 95,
       "card": "lebron.jpg"
     },
     {
@@ -114,11 +115,22 @@
       "card": "towns.jpg"
     },
     {
+      "pick": 1,
+      "year": 2023,
+      "name": "Victor Wembanyama",
+      "peak_rating": 95,
+      "first_rating": 84,
+      "mean_rating": 90,
+      "card": "wembanyama.jpg",
+      "note": "84 in 2K24 → 95 in 2K25"
+    },
+    {
       "pick": 7,
       "year": 2009,
       "name": "Stephen Curry",
       "peak_rating": 97,
       "first_rating": 76,
+      "mean_rating": 89,
       "card": "curry.jpg"
     },
     {
@@ -127,6 +139,7 @@
       "name": "Andrew Bynum",
       "peak_rating": 82,
       "first_rating": 71,
+      "mean_rating": 77,
       "card": "bynum.jpg"
     },
     {
@@ -135,6 +148,7 @@
       "name": "Richard Jefferson",
       "peak_rating": 80,
       "first_rating": 71,
+      "mean_rating": 75,
       "card": "jefferson.jpg"
     }
   ]

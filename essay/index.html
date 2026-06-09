@@ -20,14 +20,12 @@
      ══════════════════════════════════════════════════════════════ -->
 <section id="hook">
   <div class="container">
-    <div class="hook-eyebrow">A simulation study · Algorithmic Game Theory</div>
+    <div class="hook-eyebrow">A simulation study of tanking in the NBA · Algorithmic Game Theory</div>
     <h1 class="hook-headline">
-      What if <em>losing</em> was<br>the right move?
+      Why is <em>losing</em> <br>the right move?
     </h1>
     <p class="hook-sub">
-      Every year, NBA teams deliberately play worse than they can.
-      It's not incompetence. It's strategy. Here's the math behind the madness,
-      and five proposals to fix it.
+      Every year, NBA teams deliberately lose games. The draft rewards losing. We ran the math and simulated an NBA designed to stop it.
     </p>
     <div class="hook-stats">
       <div class="hook-stat">
@@ -49,11 +47,77 @@
     </div>
   </div>
   <div class="scroll-cue">
-    <span>Scroll</span>
+    <span>Scroll to learn how we stop tanking</span>
     <svg width="16" height="24" viewBox="0 0 16 24" fill="none">
       <path d="M8 2v20M1 15l7 7 7-7" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
   </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════
+     SECTION 0: INTRODUCTION
+     ══════════════════════════════════════════════════════════════ -->
+<section id="intro">
+  <div class="container">
+    <div class="section-label">About this study</div>
+    <h2 class="section-headline">Testing the debate, not just joining it</h2>
+    <p class="prose">
+      The NBA is adopting a new draft lottery mechanism this season, the 3-2-1 proposal, meant to reduce tanking incentives. Academics have proposed their own alternatives for decades. The league has tried reforms before. Everyone has a theory about what works. Almost no one has tested them against each other.
+    </p>
+    <p class="prose">
+      We ran 50 consecutive simulated NBA seasons under each of five mechanisms simultaneously, measuring how often strategic teams chose to lose deliberately and whether the draft was actually delivering picks to the teams that needed them most. Then we replaced every front office with an AI agent to see if the same incentive structures held under qualitative reasoning.
+    </p>
+    <div class="intro-pull-quote" id="intro-pull-quote">
+      For the first time, the leading academic proposals and the NBA's own reforms are tested head to head in the same simulation framework.
+    </div>
+    <hr class="intro-rule">
+    <div class="intro-what-follows">What follows</div>
+    <div class="intro-steps">
+      <a class="intro-step-row" href="#draft-explainer">
+        <span class="intro-step-left">
+          <span class="intro-step-num">1</span>
+          <span class="intro-step-name">How the draft works</span>
+        </span>
+        <span class="intro-step-desc">The lottery turns losing games into a strategic choice</span>
+      </a>
+      <a class="intro-step-row" href="#the-prize">
+        <span class="intro-step-left">
+          <span class="intro-step-num">2</span>
+          <span class="intro-step-name">The value of a great pick</span>
+        </span>
+        <span class="intro-step-desc">NBA 2K data puts a number on why pick 1 changes a franchise</span>
+      </a>
+      <a class="intro-step-row" href="#balance">
+        <span class="intro-step-left">
+          <span class="intro-step-num">3</span>
+          <span class="intro-step-name">The crossover point</span>
+        </span>
+        <span class="intro-step-desc">The exact record at which losing becomes more valuable than winning</span>
+      </a>
+      <a class="intro-step-row" href="#trajectory">
+        <span class="intro-step-left">
+          <span class="intro-step-num">4</span>
+          <span class="intro-step-name">A season, decision by decision</span>
+        </span>
+        <span class="intro-step-desc">One simulated team. 82 decisions. The exact moment the math flips.</span>
+      </a>
+      <a class="intro-step-row" href="#reforms">
+        <span class="intro-step-left">
+          <span class="intro-step-num">5</span>
+          <span class="intro-step-name">Five proposed fixes</span>
+        </span>
+        <span class="intro-step-desc">From COLA to 3-2-1, each mechanism targets the same problem differently</span>
+      </a>
+      <a class="intro-step-row" href="#results">
+        <span class="intro-step-left">
+          <span class="intro-step-num">6</span>
+          <span class="intro-step-name">What we found</span>
+        </span>
+        <span class="intro-step-desc">Tanking rates, draft fairness, and AI front offices, all five compared</span>
+      </a>
+    </div>
+  </div>
+  <div class="intro-gradient-out"></div>
 </section>
 
 <!-- ══════════════════════════════════════════════════════════════
@@ -76,56 +140,42 @@
     <div class="scroll-steps" id="lottery-steps">
       <div class="step is-active" data-lottery-step="0">
         <div class="step-number">The system</div>
-        <div class="step-headline">1,001 lottery combinations</div>
+        <div class="step-headline">It's all about the… ping pong balls?</div>
         <div class="step-body">
-          At the end of every season, the 14 teams that missed the playoffs
-          enter a weighted lottery. The NBA assigns each team a share of
-          1,001 combinations based on how bad their record was.
-          Worse record, more combinations, better shot at the top pick.
+          14 ping pong balls are numbered from 1–14. Before the draft, the league
+          pulls 4 of these balls at random and the team with the corresponding ticket
+          gets the pick.
         </div>
       </div>
 
       <div class="step" data-lottery-step="1">
-        <div class="step-number">The best of the worst</div>
-        <div class="step-headline">5 combinations. 0.5% odds.</div>
+        <div class="step-number">One combination</div>
+        <div class="step-headline">This is one of 1,001 possible combinations</div>
         <div class="step-body">
-          The 14th-ranked team, the one with the best record among teams
-          that missed the playoffs, gets just 5 of those 1,001 combinations.
-          That's a half-percent shot at the number one pick. Barely anything.
-          They're essentially playing for position, not the jackpot.
+          Draw 4 balls from 14 and you get a unique ordered set. There are exactly
+          1,001 ways to do it. The league provides all 16 non-playoff teams with a
+          set of these combinations. The worst teams hold hundreds but better teams
+          hold just a handful.
         </div>
       </div>
 
       <div class="step" data-lottery-step="2">
-        <div class="step-number">The flat zone</div>
-        <div class="step-headline">140 combinations each. Same odds for all three.</div>
-        <div class="step-body">
-          The three worst teams each receive 140 combinations, giving each
-          a 14% shot at the top pick. The 2019 reform deliberately flattened
-          the odds at the very bottom so no team could corner the market
-          on misery. Theoretically, that should make tanking less attractive.
-          In practice, 14% is still a lot to chase.
-        </div>
-      </div>
-
-      <div class="step" data-lottery-step="3">
         <div class="step-number">The full picture</div>
-        <div class="step-headline">More balls, better odds. Simple enough.</div>
+        <div class="step-headline">More combinations, better odds. Simple enough.</div>
         <div class="step-body">
           That's the whole system. The worse your record, the more lottery
-          combinations you hold. And once teams figured that out, some of them
-          started optimizing for it, deliberately.
-          The question is: how much is a top pick actually worth?
+          combinations you hold. Each square here represents 5 combinations.
+          The worst three teams, shown in red, hold more than 40% of all
+          combinations combined. Once teams figured that out, some started
+          losing on purpose.
         </div>
       </div>
 
-      <div class="step" data-lottery-step="4">
+      <div class="step" data-lottery-step="3" style="justify-content: flex-start; padding-top: 96px;">
         <div class="step-number">The breakdown</div>
-        <div class="step-headline">The worst team sits at the top. The 14th sits at the bottom.</div>
+        <div class="step-headline">The worst team sits at the top. The 17th sits at the bottom.</div>
         <div class="step-body">
-          Balls rearranged by rank. Rank 1 (worst record) has the most combinations
-          and the most balls — their stack is widest. Rank 14 barely registers.
-          The gradient is the incentive. That's what teams are optimizing for.
+          Combinations rearranged by NBA rank. The three worst teams hold the most, so their stacks are widest. From there, each slot gets fewer, until the 17th-ranked team barely registers.
         </div>
       </div>
     </div>
@@ -140,51 +190,86 @@
     <div class="section-label">Step 2</div>
     <h2 class="section-headline">Why would a team want to lose?</h2>
     <p class="prose" style="color: rgba(255,255,255,0.8);">
-      The answer comes down to one thing: the value of a great pick.
-      Some players transform a franchise overnight, and they almost always go first.
+      One thing drives tanking: the value of a great pick. NBA 2K translates real player performance into numerical ratings. We use those ratings as a proxy for skill. The highest-rated players are the kind of franchise-altering talent that almost always goes first overall.
     </p>
   </div>
 
-  <div class="sticky-container" style="max-width: var(--max-w); margin: 0 auto; padding: 0 var(--gutter);">
+  <div class="sticky-container" style="max-width: 1400px; margin: 0 auto; padding: 0 var(--gutter);">
     <div class="sticky-graphic">
       <div style="width:100%;">
-        <!-- Trading cards (single or side-by-side) -->
+        <!-- Player cards (single or side-by-side) -->
         <div id="card-area">
-          <div class="trading-card" id="trading-card">
-            <div class="card-badge">#1 PICK</div>
-            <div class="card-image-wrap">
-              <img id="card-img" src="" alt="Draft pick" style="display:none; width:100%; height:100%; object-fit:cover; border-radius:6px;">
-              <div class="card-placeholder" id="card-placeholder">?</div>
+          <div class="pc-wrap" id="pc-wrap-1">
+            <div class="pc-shell" id="player-card-1">
+              <div class="pc-badge" id="pc-badge-1">#1 PICK</div>
+              <div class="pc-face pc-front">
+                <img class="pc-logo" src="" alt="" aria-hidden="true">
+                <div class="pc-accent-bar"></div>
+                <div class="pc-photo-zone">
+                  <div class="pc-spotlight"></div>
+                  <img class="pc-photo" id="pc-photo-1" src="" alt="Player">
+                  <div class="pc-photo-fade"></div>
+                </div>
+                <div class="pc-info-zone">
+                  <div class="pc-name" id="pc-name-1"></div>
+                  <div class="pc-rule"></div>
+                  <div class="pc-meta" id="pc-meta-1"></div>
+                </div>
+                <div class="pc-grain"></div>
+                <div class="pc-inner-border"></div>
+                <div class="pc-flip-hint">Click to flip ↻</div>
+              </div>
+              <div class="pc-face pc-back" id="pc-back-1"></div>
             </div>
-            <div class="card-player-name" id="card-player-name">???</div>
           </div>
-          <div class="trading-card" id="trading-card-2" style="display:none;">
-            <div class="card-badge">#10 PICK</div>
-            <div class="card-image-wrap">
-              <img id="card-img-2" src="" alt="Draft pick" style="display:none; width:100%; height:100%; object-fit:cover; border-radius:6px;">
-              <div class="card-placeholder" id="card-placeholder-2">?</div>
+          <div class="pc-wrap" id="pc-wrap-2" style="display:none">
+            <div class="pc-shell" id="player-card-2">
+              <div class="pc-badge" id="pc-badge-2">#10 PICK</div>
+              <div class="pc-face pc-front">
+                <img class="pc-logo" src="" alt="" aria-hidden="true">
+                <div class="pc-accent-bar"></div>
+                <div class="pc-photo-zone">
+                  <div class="pc-spotlight"></div>
+                  <img class="pc-photo" id="pc-photo-2" src="" alt="Player">
+                  <div class="pc-photo-fade"></div>
+                </div>
+                <div class="pc-info-zone">
+                  <div class="pc-name" id="pc-name-2"></div>
+                  <div class="pc-rule"></div>
+                  <div class="pc-meta" id="pc-meta-2"></div>
+                </div>
+                <div class="pc-grain"></div>
+                <div class="pc-inner-border"></div>
+                <div class="pc-flip-hint">Click to flip ↻</div>
+              </div>
+              <div class="pc-face pc-back" id="pc-back-2"></div>
             </div>
-            <div class="card-player-name" id="card-player-name-2">???</div>
           </div>
         </div>
-        <div class="chart-toggle" style="margin-top: 1.5rem; margin-bottom: 0.5rem;">
-          <button class="chart-toggle-btn active" data-metric="avg_peak">Peak</button>
-          <button class="chart-toggle-btn" data-metric="avg_first">First Season</button>
-          <button class="chart-toggle-btn" data-metric="avg_mean">Average</button>
+        <div id="prize-chart-area">
+          <div class="chart-toggle" style="margin-top: 1.5rem; margin-bottom: 0.5rem;">
+            <button class="chart-toggle-btn active" data-metric="avg_peak">Peak</button>
+            <button class="chart-toggle-btn" data-metric="avg_first">First Season</button>
+            <button class="chart-toggle-btn" data-metric="avg_mean">Average</button>
+          </div>
+          <div id="pick-value-chart"></div>
+          <div id="mobile-stat-display">
+            <div class="mobile-stat-number">98</div>
+            <div class="mobile-stat-label">peak NBA 2K rating</div>
+            <div class="mobile-stat-compare"></div>
+          </div>
         </div>
-        <div id="pick-value-chart"></div>
       </div>
     </div>
 
     <div class="scroll-steps" id="prize-steps">
       <div class="step is-active" data-prize-step="0">
         <div class="step-number">The data</div>
-        <div class="step-headline">LeBron James. Pick #1, 2003. Peak NBA 2K rating: 98.</div>
+        <div class="step-headline">LeBron James. Pick #1, 2003. Peak NBA 2K rating: 99.</div>
         <div class="step-body">
-          That bar is his peak overall rating in NBA 2K — the game's measure of
-          a player's best season. Use the buttons above to toggle between
-          peak rating, first-season rating, and career average.
-          This is the floor to beat for every team chasing a top pick.
+          That bar is his peak NBA 2K overall rating. Use the buttons above to toggle between peak rating, 
+          first-season rating, and career average. He wasn't the best player in the league from day one, 
+          but he had the highest potential of his draft class. And he delivered.
         </div>
       </div>
 
@@ -192,40 +277,34 @@
         <div class="step-number">The full picture</div>
         <div class="step-headline">Now here's every lottery pick, averaged over 25 draft classes.</div>
         <div class="step-body">
-          The bars show average NBA 2K ratings by pick position from 2000 to 2024.
-          Pick #1 comes in around 88 at peak — reliably elite, but not always LeBron.
-          The drop-off is steep. By pick 7, you're already guessing.
+          The bars show average NBA 2K ratings by pick position, from 2000 to 2024. Pick #1 averages 88 at peak: reliably elite, not always LeBron. The trend isn't perfectly smooth. Pick #3 historically outperforms pick #2. But the direction is clear: the top few picks offer a far higher chance of landing a franchise star.
         </div>
       </div>
 
       <div class="step" data-prize-step="2">
-        <div class="step-number">1984</div>
+        <div class="step-number">The introduction of the lottery</div>
         <div class="step-headline">Hakeem Olajuwon. Two championships.</div>
         <div class="step-body">
           Hakeem was the first pick in 1984. Houston won back-to-back titles with him.
-          He predates this data — but he's why the phrase "franchise cornerstone" exists.
-          The number one pick does not always produce a Hakeem, but when it does,
-          it rewrites a team's history.
+          He predates NBA 2K but he's the reason the lottery exists.
+          In 1984, the worst team got the best pick automatically. Houston, after losing to the Lakers, saw the incentive and tanked the rest of the season, knowing Hakeem would be available. The league instituted a lottery so no team could guarantee the top pick.
         </div>
       </div>
 
       <div class="step" data-prize-step="3">
-        <div class="step-number">2023</div>
-        <div class="step-headline">Victor Wembanyama. Some debates resolve themselves.</div>
+        <div class="step-number">The lottery at work</div>
+        <div class="step-headline">Victor Wembanyama. Another generational talent.</div>
         <div class="step-body">
-          Some generational talents are obvious before they play a single NBA minute.
-          San Antonio already had the pick. The rest of the league noticed.
-          When pick #1 is this clear, the incentive to tank for that slot
-          becomes the strongest it can possibly be.
+          The entire league knew Wembanyama would transform a franchise. Several teams positioned themselves accordingly. San Antonio finished with the second-worst record and won the top pick at 14% odds. Many others made questionable roster decisions in an obvious tank effort. They ended up with nothing to show for it.
         </div>
       </div>
 
       <div class="step" data-prize-step="4">
-        <div class="step-number">Outliers</div>
-        <div class="step-headline">Steph Curry was picked 7th. Peak rating: 98.</div>
+        <div class="step-number">Outliers exist</div>
+        <div class="step-headline">Steph Curry far exceeded expectations at the 7th pick.</div>
         <div class="step-body">
           The green bar is pick #7. That's where Curry landed in 2009.
-          His first-season rating was 77 — mid-lottery standard.
+          His first-season rating was 77, mid-lottery standard.
           His peak hit 98, one of the highest ever.
           Every team that passed on him is still thinking about it.
           The chart shows averages. Averages can't see Curry coming.
@@ -238,7 +317,7 @@
         <div class="step-body">
           Andrew Bynum. Richard Jefferson. Solid careers.
           Pick #10 and #13 average well below the top of the lottery.
-          These picks matter — but our simulation models the expected value,
+          These picks matter, but our simulation models the expected value,
           the average outcome over many draft classes, not the lucky exception.
         </div>
       </div>
@@ -247,11 +326,7 @@
         <div class="step-number">Our model</div>
         <div class="step-headline">This is what our simulation uses.</div>
         <div class="step-body">
-          The orange dotted line is the expected pick value in our simulation.
-          It represents the average contribution per pick position in a typical
-          draft year — no LeBrons, no Currys, just the mean.
-          This is what every simulated team is calculating when it decides
-          whether to compete or tank.
+          The orange line represents expected pick value in our simulation. It measures average player contribution per draft position in a typical year. Not NBA 2K ratings. Actual team impact. Pick #1 is assigned a baseline value of 100. A Curry or LeBron would warrant far more. Every simulated team weighs this when deciding whether to compete or tank.
         </div>
       </div>
     </div>
@@ -268,12 +343,10 @@
 
     <div class="prose" style="margin-bottom: 1.5rem;">
       <p>
-        Making the playoffs does more than just advance a team in the standings.
-        It means two to four extra home games with sold-out arenas,
-        national TV appearances that drive sponsorship deals,
-        and a merchandise surge that can last for years.
-        Economists estimate the total franchise value boost at around
-        $200 million per playoff appearance. In our model, that's worth 200 points.
+        Making the playoffs pays. Two to four extra home games with sold-out arenas.
+        National TV appearances that drive sponsorship deals.
+        A merchandise surge that lasts for years.
+        Economists estimate the total franchise value boost at around $200 million per appearance. In our model, that's worth 200 points.
       </p>
       <p>
         Now compare that to the lottery. The average lottery pick is worth about
@@ -285,29 +358,15 @@
       </p>
     </div>
 
-    <div class="balance-wrap">
+    <div class="balance-wrap" style="align-items:start;">
+      <!-- Left: controls -->
       <div>
-        <svg id="scale-svg" viewBox="0 0 440 340" fill="none">
-          <defs>
-            <filter id="shadow">
-              <feDropShadow dx="0" dy="3" stdDeviation="4" flood-opacity="0.15"/>
-            </filter>
-            <filter id="glow">
-              <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
-              <feMerge>
-                <feMergeNode in="coloredBlur"/>
-                <feMergeNode in="SourceGraphic"/>
-              </feMerge>
-            </filter>
-          </defs>
-        </svg>
-
         <div class="slider-wrap">
           <div class="slider-label">
             <span>Your playoff probability</span>
-            <span id="prob-display" style="font-weight:700; color: var(--navy);">30%</span>
+            <span id="prob-display" style="font-weight:700; color: var(--navy);">22%</span>
           </div>
-          <input type="range" id="prob-slider" min="0" max="50" value="30" step="1">
+          <input type="range" id="prob-slider" min="0" max="50" value="22" step="1">
           <div class="slider-label" style="margin-top: 0.3rem;">
             <span style="color: #ef4444;">No chance (0%)</span>
             <span style="color: var(--navy);">50/50</span>
@@ -325,9 +384,7 @@
             <span style="color: var(--red);">Generational talent (200 pts)</span>
           </div>
         </div>
-      </div>
 
-      <div>
         <div class="eu-display">
           <div class="eu-box" id="eu-compete-box">
             <div class="eu-box-label">Value of Competing</div>
@@ -341,10 +398,6 @@
           </div>
         </div>
 
-        <div class="tipping-banner competing" id="tipping-banner">
-          Compete. The playoff prize is still worth chasing at these odds.
-        </div>
-
         <div style="margin-top: 1.5rem; font-size: 0.85rem; color: var(--gray); line-height: 1.65;">
           <strong style="color: var(--navy);">How to read this:</strong> competing has value because
           you might make the playoffs (200 pts). But you still get a lottery pick even if you miss.
@@ -353,6 +406,55 @@
           <br><br>
           Try sliding "top pick worth" to 200 (generational talent year).
           Watch how the math changes.
+        </div>
+      </div>
+
+      <!-- Right: SVG liquid scale -->
+      <div>
+        <svg id="balance-svg" viewBox="0 0 480 290" fill="none" style="width:100%;overflow:visible;display:block;">
+          <!-- Fulcrum -->
+          <g transform="translate(240,88)" fill="#1a2e52" opacity="0.82">
+            <polygon points="0,4 -17,46 17,46"/>
+            <rect x="-26" y="46" width="52" height="8" rx="4"/>
+          </g>
+          <!-- Beam: inner g rotates around local (0,0) = SVG (240,88) -->
+          <g transform="translate(240,88)">
+            <g id="scale-beam-rot">
+              <line x1="-140" y1="0" x2="140" y2="0" stroke="#1a2e52" stroke-width="8" stroke-linecap="round"/>
+            </g>
+          </g>
+          <!-- Left assembly: compete -->
+          <g id="scale-left-asm">
+            <line x1="0" y1="0" x2="0" y2="-60" stroke="#c8c8c8" stroke-width="1.5"/>
+            <path id="left-liquid" fill="#1a2e52" opacity="0.72"/>
+            <path d="M -50,0 L -36,60 Q 0,68 36,60 L 50,0"
+                  stroke="#1a2e52" stroke-width="2.5" fill="none"
+                  stroke-linecap="round" stroke-linejoin="round"/>
+            <text id="left-num" x="0" y="18" text-anchor="middle"
+                  font-size="28" font-weight="900" fill="#1a2e52"
+                  font-family="system-ui,-apple-system,sans-serif">--</text>
+            <text x="0" y="-8" text-anchor="middle" font-size="8" font-weight="700"
+                  letter-spacing="2" fill="#1a2e52" opacity="0.5"
+                  font-family="system-ui,-apple-system,sans-serif">COMPETE</text>
+          </g>
+          <!-- Right assembly: tank -->
+          <g id="scale-right-asm">
+            <line x1="0" y1="0" x2="0" y2="-60" stroke="#c8c8c8" stroke-width="1.5"/>
+            <path id="right-liquid" fill="#c0392b" opacity="0.72"/>
+            <path d="M -50,0 L -36,60 Q 0,68 36,60 L 50,0"
+                  stroke="#c0392b" stroke-width="2.5" fill="none"
+                  stroke-linecap="round" stroke-linejoin="round"/>
+            <text id="right-num" x="0" y="18" text-anchor="middle"
+                  font-size="28" font-weight="900" fill="#c0392b"
+                  font-family="system-ui,-apple-system,sans-serif">--</text>
+            <text x="0" y="-8" text-anchor="middle" font-size="8" font-weight="700"
+                  letter-spacing="2" fill="#c0392b" opacity="0.5"
+                  font-family="system-ui,-apple-system,sans-serif">TANK</text>
+          </g>
+        </svg>
+
+        <div class="balance-verdict competing" id="balance-verdict">
+          <strong>Compete.</strong> Playoff value beats the lottery at these odds.
         </div>
       </div>
     </div>
@@ -368,8 +470,7 @@
     <h2 class="section-headline">A season, decision by decision</h2>
     <p class="prose">
       Here's a real simulated team navigating one full 82-game season.
-      Each decision point is a moment where the team calculated its odds
-      and chose how hard to try.
+      Each decision point is where the team ran the math and chose whether to compete.
     </p>
   </div>
 
@@ -426,10 +527,10 @@
         <div class="step-body">
           Here are all the decisions across the full season, plotted on the rank line.
           Green dots late in the season appear when the team recalculates and finds
-          their lottery position is effectively set — no more ground to gain or lose.
+          its lottery position is effectively set. No more ground to gain or lose.
           A red dot that follows means the next calculation found a small window to
           slip one more rank. They didn't see a way to improve their lottery position
-          at that moment — and then the math changed again. Hover any dot for the full reasoning.
+          at that moment. Then the math changed again. Hover any dot for the full reasoning.
         </div>
       </div>
     </div>
@@ -455,14 +556,14 @@
       <button class="reform-tab" data-reform="bilevel" style="--tab-color: #2196F3;">
         Bilevel
       </button>
-      <button class="reform-tab" data-reform="cola" style="--tab-color: #4CAF50;">
-        COLA
-      </button>
       <button class="reform-tab" data-reform="wl" style="--tab-color: #FF9800;">
         Weighted Loss
       </button>
       <button class="reform-tab" data-reform="321" style="--tab-color: #9C27B0;">
         NBA 3-2-1
+      </button>
+      <button class="reform-tab" data-reform="cola" style="--tab-color: #4CAF50;">
+        COLA
       </button>
     </div>
 
@@ -505,21 +606,86 @@
         </div>
 
         <!-- COLA -->
-        <div class="reform-description" data-reform="cola" style="--tab-color:#4CAF50;">
-          <div class="reform-title" style="color: #4CAF50;">COLA: Carry-Over Lottery Allocation</div>
-          <div class="reform-body">
-            Every team that misses the playoffs earns exactly one ticket per season,
-            regardless of their record. Tickets accumulate across years and are
-            spent when a team wins a high pick. Draft order goes to whoever has the
-            most tickets. Since this season's wins and losses don't affect your
-            ticket count, there's no point in losing on purpose.
-          </div>
-          <div class="reform-why">
-            Why it nearly eliminates tanking: your record this year has zero effect
-            on your lottery position. There is nothing to optimize.
-          </div>
-          <div class="reform-key" style="border-color: #4CAF50;">
-            Near-complete incentive removal. The strongest theoretical guarantee.
+        <div class="reform-description cola-pudding" data-reform="cola" style="--tab-color:#4CAF50;">
+          <div class="reform-title" style="color:#4CAF50; margin-bottom:0.35rem;">COLA: Carry-Over Lottery Allocation</div>
+          <p class="cola-p-lead">Every non-playoff team earns <strong>3 tickets</strong> per missed season. Record does not matter. Follow one team, two universes, three seasons.</p>
+
+          <div class="cola-p-layout">
+            <div class="cola-p-left">
+              <div class="cola-p-dots" id="cola-p-dots">
+                <button class="cola-p-dot active" onclick="colaPudGo(0)"></button>
+                <button class="cola-p-dot" onclick="colaPudGo(1)"></button>
+                <button class="cola-p-dot" onclick="colaPudGo(2)"></button>
+                <button class="cola-p-dot" onclick="colaPudGo(3)"></button>
+              </div>
+
+              <div class="cola-p-step" id="cola-p-step">
+                <h3 class="cola-p-headline" id="cola-p-headline"></h3>
+                <p class="cola-p-prose" id="cola-p-prose"></p>
+              </div>
+
+              <div class="cola-p-chart">
+                <div class="cola-p-bar-row">
+                  <div class="cola-p-bar-meta">
+                    <span class="cola-p-bar-label" style="color:#c05c5c;">Tanks</span>
+                    <span class="cola-p-bar-record" id="cola-rec-tank"></span>
+                  </div>
+                  <div class="cola-p-track">
+                    <div class="cola-p-fill" id="cola-fill-tank" style="background:#c05c5c;width:0%">
+                      <span class="cola-p-count" id="cola-count-tank"></span>
+                    </div>
+                    <span class="cola-p-zero" id="cola-zero-tank" style="color:#c05c5c;">0</span>
+                  </div>
+                </div>
+
+                <div class="cola-p-mid" id="cola-p-mid"></div>
+
+                <div class="cola-p-bar-row">
+                  <div class="cola-p-bar-meta">
+                    <span class="cola-p-bar-label" style="color:#4a7fa5;">Plays hard</span>
+                    <span class="cola-p-bar-record" id="cola-rec-honest"></span>
+                  </div>
+                  <div class="cola-p-track">
+                    <div class="cola-p-fill" id="cola-fill-honest" style="background:#4a7fa5;width:0%">
+                      <span class="cola-p-count" id="cola-count-honest"></span>
+                    </div>
+                    <span class="cola-p-zero" id="cola-zero-honest" style="color:#4a7fa5;">0</span>
+                  </div>
+                </div>
+
+                <div class="cola-p-cumul" id="cola-p-cumul" style="display:none">
+                  <span style="color:#c05c5c"><strong id="cola-cumul-tank">0</strong> losses (tank)</span>
+                  <span class="cola-p-cumul-sep">·</span>
+                  <span style="color:#4a7fa5"><strong id="cola-cumul-honest">0</strong> losses (honest)</span>
+                </div>
+              </div>
+
+              <div class="cola-p-popup" id="cola-p-popup">
+                <span class="cola-p-popup-num" id="cola-p-popup-num">54</span> extra losses from tanking
+                <span class="cola-p-popup-result">= 0 extra tickets</span>
+              </div>
+
+              <div class="cola-p-nav">
+                <button class="cola-p-nav-btn" id="cola-p-prev" onclick="colaPudStep(-1)" disabled>← Back</button>
+                <span class="cola-p-counter" id="cola-p-counter">1 of 4</span>
+                <button class="cola-p-nav-btn cola-p-nav-cta" id="cola-p-next" onclick="colaPudStep(1)">See how it works →</button>
+              </div>
+            </div>
+
+            <div class="cola-p-right">
+              <div class="cola-p-ref">
+                <p class="cola-p-ref-title">For reference — cost of winning a top pick</p>
+                <p class="cola-p-ref-sub">Landing a top pick resets your ticket count. The better the pick, the steeper the cost.</p>
+                <div class="cola-p-ref-rows">
+                  <div class="cola-p-ref-row cola-p-ref-accent"><span>#1</span><span>Full reset</span><span>back to 0</span></div>
+                  <div class="cola-p-ref-row"><span>#2</span><span>−75%</span><span>keep a quarter</span></div>
+                  <div class="cola-p-ref-row"><span>#3</span><span>−50%</span><span>keep half</span></div>
+                  <div class="cola-p-ref-row"><span>#4</span><span>−25%</span><span>keep three-quarters</span></div>
+                  <div class="cola-p-ref-row cola-p-ref-dim"><span>#5–14</span><span>No cost</span><span>keep everything</span></div>
+                </div>
+                <p class="cola-p-ref-note">Fall to pick five and tanking bought you nothing anyway. Land the best player and you start over. You earned that pick the same way whether you won 20 games or 40.</p>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -546,20 +712,17 @@
         <div class="reform-description" data-reform="321" style="--tab-color:#9C27B0;">
           <div class="reform-title" style="color: #9C27B0;">NBA 3-2-1 Proposal</div>
           <div class="reform-body">
-            The NBA is introducing this as a 3-year pilot, starting as early as next season.
-            The incentive is deliberately inverted. The three worst teams (Tier A)
-            each get 2 lottery balls, fewer than any other lottery team.
-            Teams ranked 4th through 14th worst (Tier B) each get 3 balls.
-            The absolute worst teams are guaranteed no worse than pick 12.
-            All 14 picks are lottery-determined, not just the top four.
+            The NBA is introducing this as a three-year pilot. The incentive is deliberately inverted.
+            Teams ranked 4th through 10th worst get 8.1% odds at the first pick — more than anyone.
+            The three worst teams get only 5.4%. Finishing last is now actively bad for lottery odds.
+            The proposal expands the lottery to 16 teams, adding Play-In losers as eligible teams at 5.4% and 2.7%.
+            Our simulation includes all 16 teams.
           </div>
-          <div class="reform-why">
-            Why it reduces tanking: landing in the bottom three gives you fewer
-            lottery balls than everyone else. Teams near the bottom compete
-            to stay out of Tier A.
+          <div class="reform-key" style="border-color: #9C27B0; display: block;">
+            Finishing last is bad for your odds. The worst three teams hold about 5.4% each. The middle group holds 8.1%. Teams compete to stay out of the bottom, not reach it.
           </div>
-          <div class="reform-key" style="border-color: #9C27B0;">
-            Inverts the incentive. Being the worst is now actively bad for lottery odds.
+          <div class="reform-key" style="border-color: #9C27B0; display: block; margin-top: 0.75rem;">
+            The risk stays at the boundary. A bubble team in a strong draft year might still decide a missed playoff is worth more than a first-round exit.
           </div>
         </div>
       </div>
@@ -583,8 +746,10 @@
           <svg id="reform-diagram-wl" viewBox="0 0 380 240"></svg>
         </div>
         <div class="reform-diagram" data-reform="321">
-          <div class="reform-diagram-label">Lottery balls by tier: the inversion</div>
-          <svg id="reform-diagram-321" viewBox="0 0 380 240"></svg>
+          <div class="reform-diagram-label">Odds at pick 1, by team rank</div>
+          <div class="reform-321-subtitle" id="reform-321-subtitle">current rules, 2026</div>
+          <div class="reform-321-reveal" id="reform-321-reveal">the worst teams just lost their advantage</div>
+          <svg id="reform-diagram-321" viewBox="0 0 380 318"></svg>
         </div>
       </div>
     </div>
@@ -615,9 +780,7 @@
         <div class="step-headline">NBA Lottery (Current)</div>
         <div class="step-rate" style="color: var(--col-nba);">6.9%</div>
         <div class="step-body">
-          The current system is the baseline. Strategic teams tank 6.9% of game-day decisions
-          — every time they have a chance to win, they calculate whether it's worth it.
-          That's the incentive the lottery creates.
+          The current system is the baseline. Strategic teams tank 6.9% of game-day decisions. Every time they can win, they calculate whether it's worth it. That's the incentive the lottery creates.
         </div>
       </div>
 
@@ -669,6 +832,22 @@
 </section>
 
 <!-- ══════════════════════════════════════════════════════════════
+     TANKING TIMING
+     ══════════════════════════════════════════════════════════════ -->
+<section id="tanking-timing" style="background: #0f1523; padding: 3.5rem 0;">
+  <div class="container">
+    <h2 class="section-headline" style="text-align:center; margin-bottom:0.5rem; color:white;">
+      When During the Season Do Teams Tank?
+    </h2>
+    <p class="prose" style="text-align:center; max-width:640px; margin:0 auto 1.5rem; font-size:0.95rem; color:rgba(255,255,255,0.65);">
+      Each mechanism creates a different incentive window. Watch how tanking pressure builds,
+      peaks, and cuts off under each set of rules.
+    </p>
+    <div id="tanking-timing-chart"></div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════
      SECTION 8: DRAFT FAIRNESS (tau static + efficiency Scrollama)
      ══════════════════════════════════════════════════════════════ -->
 <section id="fairness">
@@ -687,9 +866,7 @@
       <div id="tau-chart"></div>
       <div class="metric-explainer">
         We compare each season's final standings against each team's true underlying skill.
-        A score of zero means the best teams won the most, perfectly. A higher score means
-        more disorder between talent and results. All five mechanisms land in a tight band,
-        meaning the reform design barely affects competitive balance at these tanking rates.
+        Zero means the best teams won the most. A higher score means more disorder between talent and results. All five mechanisms land in a tight band. The reform design barely affects competitive balance at these tanking rates.
       </div>
     </div>
   </div>
@@ -711,9 +888,7 @@
         <div class="step-headline">3-2-1 gives the weakest teams the best picks.</div>
         <div class="step-body">
           Looking at the 8 teams with the lowest true skill each season,
-          3-2-1 delivers the lowest average pick number. That's because all 14 picks
-          go through the lottery under 3-2-1, giving even middling weak teams a real
-          shot at any slot instead of being locked into picks 5 through 8 by record.
+          3-2-1 delivers the lowest average pick number. Under 3-2-1, all 14 picks go through the lottery. Even middling weak teams get a real shot at any slot, rather than being locked into picks 5 through 8 by record.
         </div>
       </div>
 
@@ -723,13 +898,19 @@
         <div class="step-body">
           COLA rewards history, not this year's record. A team that was great for years
           and just fell apart this season hasn't accumulated many tickets yet.
-          They could be genuinely the worst team in the league but still sit at the
-          back of the lottery queue, behind franchises that have been bad longer.
-          COLA struggles to quickly adapt to new information about which teams
-          need help the most.
+          It could be the worst team in the league and still sit at the back of the lottery queue, behind franchises that have been bad longer.
+          COLA is slow to recognize newly terrible teams.
         </div>
       </div>
     </div>
+  </div>
+
+  <div class="container" style="margin-top: 3rem;">
+    <div class="chart-title">Which picks do the weakest teams actually receive?</div>
+    <p class="prose" style="font-size: 0.9rem; color: var(--gray); margin-bottom: 0.75rem; max-width: 640px;">
+      Since our simulation assigns each team a true skill level, we know which three teams were genuinely the weakest each season, not just which three lost the most. Among those teams, what pick slots did they end up with? Darker cells mean that range is more common. The row labels tell you whether dark is good or bad. A well-designed mechanism has its darkest cells at the top.
+    </p>
+    <div id="pick-distribution-chart"></div>
   </div>
 </section>
 
@@ -746,6 +927,9 @@
       game counts, and the rules of the mechanism, then had to decide: compete or tank?
       No hints. No training on the right answer.
     </p>
+    <p class="prose" style="margin-bottom: 2.5rem; font-size: 0.9rem; color: var(--gray);">
+      <strong>Methodological note:</strong> the AI agents optimize against a calibrated playoff value of 200 simulation points — the expected benefit of a playoff appearance in our model. All tanking rates below reflect that assumption. In a year with a generational prospect, the value of the top pick can exceed this threshold, and the incentive to tank returns even under 3-2-1.
+    </p>
   </div>
 
   <div class="llm-sticky-container" style="max-width: var(--max-w); margin: 0 auto; padding: 0 var(--gutter);">
@@ -760,11 +944,11 @@
         <div class="step-body">
           A real front office doesn't run expected-value calculations on every game.
           A GM reads the standings, weighs fan expectations, thinks about whether a season
-          still feels salvageable. The AI does the same — it applies a qualitative
-          "we're out of it" threshold and drops effort sharply. That's actually closer
+          still feels salvageable. The AI does the same. It applies a qualitative
+          "we're out of it" threshold and drops effort sharply. That's closer
           to how front offices behave than a strict probability calculation.
-          It's also why the AI tanks slightly <em>more</em> than the math demands:
-          loss aversion and narrative framing push GMs to give up earlier than is optimal.
+          It's also why the AI tanks slightly <em>more</em> than the math demands.
+          Loss aversion and narrative framing push GMs to give up earlier than optimal.
         </div>
       </div>
 
@@ -772,11 +956,7 @@
         <div class="step-number">Bilevel</div>
         <div class="step-rate" style="color: var(--col-bil);">6.2% <span style="font-size: 1rem; font-weight: 400; color: var(--gray);">vs 3.0% strategic</span></div>
         <div class="step-body">
-          The AI grasps the deadline mechanic — tank now before Game 70, or lose the
-          opportunity entirely. It responds to this kind of bounded window more
-          aggressively than a pure optimizer would. Real GMs show the same behavior:
-          Thaler calls it present bias — the value of an action feels larger when time
-          is running out, even if the math doesn't change.
+          The AI grasps the deadline mechanic: tank before Game 70, or lose the window entirely. It responds to bounded deadlines more aggressively than a pure optimizer would. Real GMs show the same behavior. Thaler calls it present bias. The value of an action feels larger when time is running out, even when the math doesn't change.
         </div>
       </div>
 
@@ -785,22 +965,7 @@
         <div class="step-rate" style="color: var(--col-wl);">3.4% <span style="font-size: 1rem; font-weight: 400; color: var(--gray);">vs 2.3% strategic</span></div>
         <div class="step-body">
           The AI picks up the decay mechanic and pulls back on late-season tanking.
-          But it still overshoots. There are qualitative factors the AI weighs
-          that don't fit a formula: the appeal of having your name attached to a
-          high pick, the fear of disappointing fans who expected a tank-for-the-top
-          narrative, the irrational stubbornness of committing to a strategy.
-        </div>
-      </div>
-
-      <div class="step" data-llm-mech="cola">
-        <div class="step-number">COLA</div>
-        <div class="step-rate" style="color: var(--col-col);">0.0% <span style="font-size: 1rem; font-weight: 400; color: var(--gray);">matches strategic</span></div>
-        <div class="step-body">
-          When your record this year has zero effect on lottery position,
-          there is nothing to rationalize. The AI reads the rules and doesn't tank —
-          not because it calculated expected values, but because it understands the
-          situation doesn't reward it. This matters: even behaviorally messy
-          decision-makers stop a behavior when the incentive is fully removed.
+          But it still overshoots. Qualitative factors push it further than the formula says: the appeal of attaching your name to a high pick, the fear of disappointing fans who expected a tank-for-the-top narrative, the sheer momentum of a committed strategy.
         </div>
       </div>
 
@@ -813,10 +978,21 @@
           The inversion is intuitive enough that qualitative reasoning handles it.
           <br><br>
           <strong style="color: var(--navy);">One important caveat:</strong> all of this assumes
-          a normal draft year. A generational talent like Wembanyama could
-          spike the value of the top pick enough to flip the math — and a human GM
-          with a city desperate for a superstar might chase that story even when
+          a normal draft year where a playoff berth (200 pts in our model) outweighs the top pick.
+          A generational talent like Wembanyama spikes pick value high enough to flip the math —
+          our simulations confirm that a sufficiently valuable top pick reverses the 3-2-1 incentive entirely.
+          A human GM with a city desperate for a superstar might chase that story even when
           the numbers say not to.
+        </div>
+      </div>
+
+      <div class="step" data-llm-mech="cola">
+        <div class="step-number">COLA</div>
+        <div class="step-rate" style="color: var(--col-col);">0.0% <span style="font-size: 1rem; font-weight: 400; color: var(--gray);">matches strategic</span></div>
+        <div class="step-body">
+          When your record this year has zero effect on lottery position,
+          there is nothing to rationalize. The AI reads the rules and doesn't tank.
+          Not because it calculated expected values. Because it understands the situation doesn't reward it. This matters: even behaviorally messy decision-makers stop a behavior when the incentive is fully removed.
         </div>
       </div>
     </div>
@@ -838,7 +1014,7 @@
 
     <div class="conclusion-banner">
       The NBA is expected to adopt the 3-2-1 format as soon as next season.
-      Based on our simulations, that's the right call. But the tier boundary creates a new incentive worth watching closely.
+      Our simulations say that's the right call. But the tier boundary creates a new incentive worth watching closely.
     </div>
 
     <div class="conclusion-grid">
@@ -860,16 +1036,23 @@
         <div class="conclusion-card-header">What we worry about</div>
         <div class="conclusion-card-body">
           <p>
-            3-2-1 creates a strange incentive at the tier boundary. The 3rd-worst team has
-            <strong>fewer lottery balls</strong> than the 4th-worst. A franchise hovering at that
-            line might actually try to win games to climb out of Tier A into better-odds Tier B.
-            It's a new flavor of gaming the system, just inverted.
-            And in a generational draft year — another Wembanyama — even the reduced Tier A
-            odds might be worth chasing, because the top pick is worth so much more.
+            3-2-1 closes the door on tanking for teams already out of 
+            playoff contention. But it leaves another door open. In a year 
+            with a generational prospect, a bubble team might decide the 
+            pick is worth more than a first-round exit. Miss the playoffs 
+            on purpose, collect your three lottery balls, take your shot. 
+            The system cannot stop that calculation. And if it happens, 
+            the cruel irony is that the <strong>worst teams</strong> in the 
+            league get <strong>fewer balls</strong> than the teams that 
+            chose to lose. The prospect most needed at the bottom goes 
+            somewhere else.
           </p>
           <p style="margin-top: 0.75rem; font-size: 0.88rem; color: rgba(255,255,255,0.65);">
             <strong>One more thing:</strong> the NBA is treating 3-2-1 as a 3-year experiment.
             If it doesn't reduce tanking in practice, they'll revisit.
+          </p>
+          <p style="margin-top: 0.75rem; font-size: 0.85rem; color: rgba(255,255,255,0.5);">
+            <em>Our results assume a playoff berth is worth 200 simulation points. Raise that threshold — or introduce a generational-class prospect — and the calculus shifts. The mechanism's robustness to extreme draft years remains an open question.</em>
           </p>
           <div class="conclusion-stat" style="color: #f87171;">Tier A <span>2 balls vs Tier B 3 balls: the inversion</span></div>
         </div>
@@ -877,12 +1060,7 @@
     </div>
 
     <div class="conclusion-future">
-      <strong>Looking further ahead:</strong> if 3-2-1 proves effective, the NBA should consider
-      building on it. Two options stand out. Layering in a Bilevel standings lock at game 70
-      would cut tanking further with no new infrastructure. Or the league could move toward a
-      COLA-style format where lottery position is based on years out of the playoffs
-      rather than current record, the approach with the strongest theoretical guarantee
-      that tanking is never the smart move.
+      If 3-2-1 proves effective, two options are worth building on. A Bilevel standings lock at game 70 would cut tanking further with no new infrastructure. Or the league could move toward COLA, where lottery position is based on years out of the playoffs rather than current record. That approach carries the strongest theoretical guarantee: tanking is never the rational move.
     </div>
 
     <div class="final-takeaway">
@@ -915,48 +1093,54 @@
     </p>
 
     <div class="bib-list">
-      <div class="bib-item">
+      <a class="bib-item" href="https://drive.google.com/file/d/1hbNh2sEyZIYYvdGEIDoeGhKQCg85Snw2/view?usp=sharing" target="_blank" rel="noopener">
         <span class="bib-type-tag bib-type-paper">Paper</span>
         <div class="bib-title">Valentine &amp; Dhinakaran (2026)</div>
         <div class="bib-desc">Our full paper. The math behind all of this, with proofs and complete simulation results.</div>
-        <a href="#" class="bib-link">Full paper</a>
-      </div>
-      <div class="bib-item">
+        <span class="bib-link">Full paper ↗</span>
+      </a>
+      <a class="bib-item" href="https://github.com/GrantValentine/AGT_Tanking_Simulations" target="_blank" rel="noopener">
         <span class="bib-type-tag bib-type-code">Code</span>
         <div class="bib-title">AGT Tanking Simulations (GitHub)</div>
         <div class="bib-desc">All simulation code, data, and this visual essay. Open source.</div>
-        <a href="https://github.com/GrantValentine/AGT_Tanking_Simulations" class="bib-link" target="_blank">GitHub repository</a>
-      </div>
-      <div class="bib-item">
+        <span class="bib-link">GitHub repository ↗</span>
+      </a>
+      <a class="bib-item" href="https://www.sloansportsconference.com/research-papers/a-no-tanking-draft-allocation-policy" target="_blank" rel="noopener">
         <span class="bib-type-tag bib-type-proposal">Proposal</span>
-        <div class="bib-title">Banchio &amp; Munro (2020)</div>
+        <div class="bib-title">Banchio &amp; Munro (2020) — "A No-Tanking Draft Allocation Policy"</div>
         <div class="bib-desc">Proposes the COLA mechanism. Proves that carry-over tickets effectively remove the tanking incentive when record has no effect on lottery position.</div>
-        <a href="#" class="bib-link">MIT Sloan paper</a>
-      </div>
-      <div class="bib-item">
+        <span class="bib-link">MIT Sloan paper ↗</span>
+      </a>
+      <a class="bib-item" href="https://akazachk.github.io/pubs/tanking.pdf" target="_blank" rel="noopener">
         <span class="bib-type-tag bib-type-proposal">Proposal</span>
-        <div class="bib-title">Kazachkov &amp; Vardi (2020)</div>
+        <div class="bib-title">Kazachkov &amp; Vardi (2020) — "On Tanking and Competitive Balance"</div>
         <div class="bib-desc">The original proposal for locking draft position mid-season. The theoretical foundation for the Bilevel mechanism we test here.</div>
-        <a href="#" class="bib-link">Working paper</a>
-      </div>
-      <div class="bib-item">
+        <span class="bib-link">PDF ↗</span>
+      </a>
+      <a class="bib-item" href="https://www.researchgate.net/publication/400395501_Carry-Over_Lottery_Allocation_Practical_Incentive-Compatible_Drafts" target="_blank" rel="noopener">
+        <span class="bib-type-tag bib-type-proposal">Proposal</span>
+        <div class="bib-title">Highley et al. (2026) — "Carry-Over Lottery Allocation"</div>
+        <div class="bib-desc">Full theoretical treatment of the COLA mechanism, with proofs of incentive compatibility and simulation results across league configurations.</div>
+        <span class="bib-link">PDF ↗</span>
+      </a>
+      <a class="bib-item" href="https://www.jstor.org/stable/10.1086/323930" target="_blank" rel="noopener">
         <span class="bib-type-tag bib-type-empirical">Empirical</span>
-        <div class="bib-title">Taylor &amp; Trogdon (2002)</div>
+        <div class="bib-title">Taylor &amp; Trogdon (2002) — "Losing to Win"</div>
         <div class="bib-desc">Early empirical evidence that NBA teams strategically lose games near the end of the season to improve draft position. The paper that established tanking as a real phenomenon.</div>
-        <a href="#" class="bib-link">JSTOR</a>
-      </div>
-      <div class="bib-item">
+        <span class="bib-link">JSTOR ↗</span>
+      </a>
+      <a class="bib-item" href="https://www.researchgate.net/publication/381102453_On_the_Incentive_Structure_of_Tournaments_Evidence_from_the_National_Basketball_Association's_Draft_Lottery" target="_blank" rel="noopener">
         <span class="bib-type-tag bib-type-empirical">Empirical</span>
-        <div class="bib-title">Schmidt (2024)</div>
+        <div class="bib-title">Schmidt (2024) — "On the Incentive Structure of Tournaments"</div>
         <div class="bib-desc">Recent empirical update on tanking behavior under the 2019 NBA lottery reform. Measures whether the flat zone actually changed team behavior.</div>
-        <a href="#" class="bib-link">ResearchGate</a>
-      </div>
-      <div class="bib-item">
+        <span class="bib-link">ResearchGate ↗</span>
+      </a>
+      <a class="bib-item" href="https://www.jstor.org/stable/44735159" target="_blank" rel="noopener">
         <span class="bib-type-tag bib-type-empirical">Empirical</span>
-        <div class="bib-title">Lenten (2016)</div>
+        <div class="bib-title">Lenten (2016) — "Mitigation of Perverse Incentives in Professional Sports Leagues"</div>
         <div class="bib-desc">Competitive balance research across sports leagues. The foundation for thinking about how draft mechanisms affect league health over time.</div>
-        <a href="#" class="bib-link">ResearchGate</a>
-      </div>
+        <span class="bib-link">JSTOR ↗</span>
+      </a>
     </div>
   </div>
 </section>
@@ -965,5 +1149,29 @@
 <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
 <script src="https://cdn.jsdelivr.net/npm/scrollama@3"></script>
 <script src="main.js" type="module"></script>
+<script>
+(function() {
+  var el = document.getElementById('intro-pull-quote');
+  if (!el) return;
+  var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) { el.classList.add('is-visible'); obs.disconnect(); }
+    });
+  }, { threshold: 0.3 });
+  obs.observe(el);
+})();
+(function() {
+  var cue = document.querySelector('.scroll-cue');
+  var hook = document.getElementById('hook');
+  if (!cue || !hook) return;
+  function update() {
+    var bottom = hook.getBoundingClientRect().bottom;
+    var vh = window.innerHeight;
+    cue.style.opacity = Math.max(0, Math.min(1, (bottom - vh * 0.1) / (vh * 0.5)));
+  }
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+})();
+</script>
 </body>
 </html>

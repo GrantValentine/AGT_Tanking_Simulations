@@ -438,6 +438,72 @@ def export_nba2k_picks():
     print(f"[ok] nba2k_picks.json  avg_peak picks 1-5: {avg_peak[:5]}")
 
 
+def export_tanking_timing(conn):
+    """Per-mechanism tanking rate in 10-game buckets across the 82-game season."""
+    buckets = list(range(5, 86, 10))  # midpoints: 5, 15, 25, ..., 85
+    out = {
+        "mechanisms": MECH_ORDER,
+        "labels":     [MECH_LABELS[m] for m in MECH_ORDER],
+        "buckets":    buckets,
+        "rates":      {},
+    }
+    for mech in MECH_ORDER:
+        run_id = RATIONAL_RUNS[mech]
+        rates = []
+        for mid in buckets:
+            lo, hi = mid - 5, mid + 5
+            row = conn.execute(
+                "SELECT AVG(CASE WHEN effort_chosen < 0.5 THEN 1.0 ELSE 0.0 END) "
+                "FROM agent_decisions WHERE run_id=? AND games_completed >= ? AND games_completed < ?",
+                (run_id, lo, hi)
+            ).fetchone()
+            rates.append(round(row[0] or 0.0, 4))
+        out["rates"][mech] = rates
+    (OUT_DIR / "tanking_timing.json").write_text(json.dumps(out, indent=2))
+    print("[ok] tanking_timing.json  nba_lottery:", out["rates"]["nba_lottery"])
+
+
+def export_pick_distribution(conn):
+    """For bottom-3 skill teams each season: proportion of picks in each range."""
+    pick_ranges = [[1], [2, 3], [4, 5, 6, 7], list(range(8, 15))]
+    range_labels = ["Pick 1", "Picks 2-3", "Picks 4-7", "Picks 8-14"]
+    out = {
+        "mechanisms":   MECH_ORDER,
+        "labels":       [MECH_LABELS[m] for m in MECH_ORDER],
+        "pick_ranges":  range_labels,
+        "distributions": {},
+    }
+    for mech in MECH_ORDER:
+        run_id = RATIONAL_RUNS[mech]
+        seasons = [r[0] for r in conn.execute(
+            "SELECT DISTINCT season FROM skill_history WHERE run_id=? ORDER BY season",
+            (run_id,)
+        ).fetchall()]
+        counts = [0] * 4
+        for season in seasons:
+            skills = conn.execute(
+                "SELECT team_id, true_skill FROM skill_history "
+                "WHERE run_id=? AND season=? ORDER BY true_skill ASC",
+                (run_id, season)
+            ).fetchall()
+            picks_map = {r[0]: r[1] for r in conn.execute(
+                "SELECT team_id, draft_pick FROM draft_results "
+                "WHERE run_id=? AND season=? AND made_playoffs=0",
+                (run_id, season)
+            ).fetchall()}
+            for tid, _ in skills[:3]:
+                pick = picks_map.get(tid)
+                if pick is None:
+                    continue
+                for ri, rng in enumerate(pick_ranges):
+                    if pick in rng:
+                        counts[ri] += 1
+        total = sum(counts)
+        out["distributions"][mech] = [round(c / total, 4) if total else 0.0 for c in counts]
+    (OUT_DIR / "pick_distribution.json").write_text(json.dumps(out, indent=2))
+    print("[ok] pick_distribution.json", out["distributions"])
+
+
 # ── Main ───────────────────────────────────────────────────────────────────────
 
 def main():
@@ -454,6 +520,8 @@ def main():
     export_llm_by_mechanism(conn)
     export_season_trajectory(conn)
     export_nba2k_picks()
+    export_tanking_timing(conn)
+    export_pick_distribution(conn)
 
     conn.close()
     print(f"\nAll files written to {OUT_DIR}/")
