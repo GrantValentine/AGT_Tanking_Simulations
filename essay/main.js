@@ -1254,7 +1254,7 @@ function initTrajectory() {
 const COLA_PUD_STEPS = [
   {
     headline: "Your team missed the playoffs. Again.",
-    prose: "Right now, a worse record means better lottery odds — tanking is mathematically rational. COLA was designed to close that door entirely. Follow this team across three seasons, in two parallel universes.",
+    prose: "Right now, a worse record means better lottery odds. Tanking is mathematically rational. COLA was designed to close that door entirely. Follow this team across three seasons, in two parallel universes.",
     tank:   { tickets: 0, record: null },
     honest: { tickets: 0, record: null },
     cumTank: 0, cumHonest: 0,
@@ -1262,7 +1262,7 @@ const COLA_PUD_STEPS = [
   },
   {
     headline: "Season one ends. Twice.",
-    prose: "Universe A: 20–62. Universe B: 38–44. In both, they missed the playoffs. COLA opens the ticket window — it doesn't ask how you got here. Did you miss the playoffs? Yes. Three tickets. Each.",
+    prose: "Universe A: 20–62. Universe B: 38–44. In both, they missed the playoffs. COLA opens the ticket window. It doesn't ask how you got here. Did you miss the playoffs? Yes. Three tickets. Each.",
     tank:   { tickets: 3, record: "20–62" },
     honest: { tickets: 3, record: "38–44" },
     cumTank: 62, cumHonest: 44,
@@ -1270,7 +1270,7 @@ const COLA_PUD_STEPS = [
   },
   {
     headline: "Season two. Same math.",
-    prose: "18–64 in one universe. 36–46 in the other. Neither made the playoffs. Three more tickets added to each pile, as if neither record happened — because, under COLA, neither record did.",
+    prose: "18–64 in one universe. 36–46 in the other. Neither made the playoffs. Three more tickets added to each pile, as if neither record happened. Under COLA, neither record did.",
     tank:   { tickets: 6, record: "18–64" },
     honest: { tickets: 6, record: "36–46" },
     cumTank: 126, cumHonest: 90,
@@ -1565,7 +1565,7 @@ function drawReformBilevel() {
     .attr("x", iw / 2).attr("y", barY + barH + 18)
     .attr("text-anchor", "middle").attr("fill", "rgba(255,255,255,0.5)")
     .attr("font-size", 8).attr("opacity", 0)
-    .text("standings lock — losing does nothing after here");
+    .text("standings lock: losing does nothing after here");
 
   // Game labels
   const lblY = barY + barH + 32;
@@ -1624,7 +1624,7 @@ function drawReformCOLA() {
   svg.append("text")
     .attr("x", m.left).attr("y", 24)
     .attr("fill", "rgba(255,255,255,0.55)").attr("font-size", 9)
-    .text("Win pick #N: spend N tickets. Here: win pick #3 in year 3 — spend all 3 tickets.");
+    .text("Win pick #N: spend N tickets. Here: win pick #3 in year 3. Spend all 3 tickets.");
 
   const yearW = iw / years;
   const maxTickets = 5;

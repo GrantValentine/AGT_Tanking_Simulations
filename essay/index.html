@@ -716,7 +716,7 @@
           <div class="reform-title" style="color: #9C27B0;">NBA 3-2-1 Proposal</div>
           <div class="reform-body">
             The NBA is introducing this as a three-year pilot. The incentive is deliberately inverted.
-            Teams ranked 4th through 10th worst get 8.1% odds at the first pick — more than anyone.
+            Teams ranked 4th through 10th worst get 8.1% odds at the first pick, more than anyone.
             The three worst teams get only 5.4%. Finishing last is now actively bad for lottery odds.
             The proposal expands the lottery to 16 teams, adding Play-In losers as eligible teams at 5.4% and 2.7%.
             Our simulation includes all 16 teams.
@@ -930,9 +930,6 @@
       game counts, and the rules of the mechanism, then had to decide: compete or tank?
       No hints. No training on the right answer.
     </p>
-    <p class="prose" style="margin-bottom: 2.5rem; font-size: 0.9rem; color: var(--gray);">
-      <strong>Methodological note:</strong> the AI agents optimize against a calibrated playoff value of 200 simulation points, the expected benefit of a playoff appearance in our model. All tanking rates below reflect that assumption. In a year with a generational prospect, the value of the top pick can exceed this threshold, and the incentive to tank returns even under 3-2-1.
-    </p>
   </div>
 
   <div class="llm-sticky-container" style="max-width: var(--max-w); margin: 0 auto; padding: 0 var(--gutter);">
@@ -979,13 +976,6 @@
           The AI correctly identifies that landing in the bottom three is
           actively bad for lottery odds and competes accordingly.
           The inversion is intuitive enough that qualitative reasoning handles it.
-          <br><br>
-          <strong style="color: var(--navy);">One important caveat:</strong> all of this assumes
-          a normal draft year where a playoff berth (200 pts in our model) outweighs the top pick.
-          A generational talent like Wembanyama spikes pick value high enough to flip the math.
-          Our simulations confirm that a sufficiently valuable top pick reverses the 3-2-1 incentive entirely.
-          A human GM with a city desperate for a superstar might chase that story even when
-          the numbers say not to.
         </div>
       </div>
 
@@ -1067,11 +1057,10 @@
     </div>
 
     <div class="final-takeaway">
-      "Teams are smarter, they are creative, and they respond — we move, they move —
-       so we're always looking to see whether there's yet a better system."
-      <div class="attribution" style="margin-top: 0.75rem; font-size: 0.85rem; font-style: normal; color: rgba(255,255,255,0.6);">
-        — Adam Silver, NBA Commissioner
-      </div>
+      <div class="final-takeaway-mark" aria-hidden="true">"</div>
+      Teams are smarter, they are creative, and they respond. We move, they move.
+      So we're always looking to see whether there's yet a better system.
+      <div class="final-takeaway-attribution">Adam Silver, NBA Commissioner</div>
     </div>
 
     <div class="attribution">
@@ -1102,6 +1091,11 @@
         <div class="bib-desc">Our full paper. The math behind all of this, with proofs and complete simulation results.</div>
         <span class="bib-link">Full paper ↗</span>
       </a>
+      <div class="bib-item">
+        <span class="bib-type-tag bib-type-assumption">Assumption used throughout</span>
+        <div class="bib-title">A note on simulation assumptions</div>
+        <div class="bib-desc">All tanking rates in this essay assume a playoff berth is worth 200 simulation points, calibrated to reflect typical franchise value and competitive incentives. This is consistent with Kazachkov 2020. In a year with a generational prospect, the value of the top pick can exceed this threshold and the tanking incentive returns even under 3-2-1. The mechanism's robustness to extreme draft years remains an open question.</div>
+      </div>
       <a class="bib-item" href="https://github.com/GrantValentine/AGT_Tanking_Simulations" target="_blank" rel="noopener">
         <span class="bib-type-tag bib-type-code">Code</span>
         <div class="bib-title">AGT Tanking Simulations (GitHub)</div>
@@ -1110,37 +1104,37 @@
       </a>
       <a class="bib-item" href="https://www.sloansportsconference.com/research-papers/a-no-tanking-draft-allocation-policy" target="_blank" rel="noopener">
         <span class="bib-type-tag bib-type-proposal">Proposal</span>
-        <div class="bib-title">Banchio &amp; Munro (2020) — "A No-Tanking Draft Allocation Policy"</div>
+        <div class="bib-title">Banchio &amp; Munro (2020). "A No-Tanking Draft Allocation Policy"</div>
         <div class="bib-desc">Proposes the COLA mechanism. Proves that carry-over tickets effectively remove the tanking incentive when record has no effect on lottery position.</div>
         <span class="bib-link">MIT Sloan paper ↗</span>
       </a>
       <a class="bib-item" href="https://akazachk.github.io/pubs/tanking.pdf" target="_blank" rel="noopener">
         <span class="bib-type-tag bib-type-proposal">Proposal</span>
-        <div class="bib-title">Kazachkov &amp; Vardi (2020) — "On Tanking and Competitive Balance"</div>
+        <div class="bib-title">Kazachkov &amp; Vardi (2020). "On Tanking and Competitive Balance"</div>
         <div class="bib-desc">The original proposal for locking draft position mid-season. The theoretical foundation for the Bilevel mechanism we test here.</div>
         <span class="bib-link">PDF ↗</span>
       </a>
       <a class="bib-item" href="https://www.researchgate.net/publication/400395501_Carry-Over_Lottery_Allocation_Practical_Incentive-Compatible_Drafts" target="_blank" rel="noopener">
         <span class="bib-type-tag bib-type-proposal">Proposal</span>
-        <div class="bib-title">Highley et al. (2026) — "Carry-Over Lottery Allocation"</div>
+        <div class="bib-title">Highley et al. (2026). "Carry-Over Lottery Allocation"</div>
         <div class="bib-desc">Full theoretical treatment of the COLA mechanism, with proofs of incentive compatibility and simulation results across league configurations.</div>
         <span class="bib-link">PDF ↗</span>
       </a>
       <a class="bib-item" href="https://www.jstor.org/stable/10.1086/323930" target="_blank" rel="noopener">
         <span class="bib-type-tag bib-type-empirical">Empirical</span>
-        <div class="bib-title">Taylor &amp; Trogdon (2002) — "Losing to Win"</div>
+        <div class="bib-title">Taylor &amp; Trogdon (2002). "Losing to Win"</div>
         <div class="bib-desc">Early empirical evidence that NBA teams strategically lose games near the end of the season to improve draft position. The paper that established tanking as a real phenomenon.</div>
         <span class="bib-link">JSTOR ↗</span>
       </a>
       <a class="bib-item" href="https://www.researchgate.net/publication/381102453_On_the_Incentive_Structure_of_Tournaments_Evidence_from_the_National_Basketball_Association's_Draft_Lottery" target="_blank" rel="noopener">
         <span class="bib-type-tag bib-type-empirical">Empirical</span>
-        <div class="bib-title">Schmidt (2024) — "On the Incentive Structure of Tournaments"</div>
+        <div class="bib-title">Schmidt (2024). "On the Incentive Structure of Tournaments"</div>
         <div class="bib-desc">Recent empirical update on tanking behavior under the 2019 NBA lottery reform. Measures whether the flat zone actually changed team behavior.</div>
         <span class="bib-link">ResearchGate ↗</span>
       </a>
       <a class="bib-item" href="https://www.jstor.org/stable/44735159" target="_blank" rel="noopener">
         <span class="bib-type-tag bib-type-empirical">Empirical</span>
-        <div class="bib-title">Lenten (2016) — "Mitigation of Perverse Incentives in Professional Sports Leagues"</div>
+        <div class="bib-title">Lenten (2016). "Mitigation of Perverse Incentives in Professional Sports Leagues"</div>
         <div class="bib-desc">Competitive balance research across sports leagues. The foundation for thinking about how draft mechanisms affect league health over time.</div>
         <span class="bib-link">JSTOR ↗</span>
       </a>

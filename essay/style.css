@@ -1354,17 +1354,40 @@ section:nth-child(even) { background: var(--white); }
 }
 
 .final-takeaway {
-  margin-top: 3rem;
-  padding: 1.8rem;
-  border-radius: 14px;
-  background: rgba(200,16,46,0.2);
-  border: 1px solid rgba(200,16,46,0.4);
-  font-family: var(--serif);
-  font-size: clamp(1.1rem, 2.5vw, 1.5rem);
-  font-style: italic;
-  color: white;
-  line-height: 1.5;
+  margin: 60px auto;
+  max-width: 640px;
+  padding: 0 1.5rem;
   text-align: center;
+  font-family: var(--serif);
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  color: white;
+  line-height: 1.6;
+}
+
+.final-takeaway-mark {
+  display: block;
+  font-size: 60px;
+  line-height: 0.85;
+  color: rgba(200,16,46,0.28);
+  font-family: var(--serif);
+  font-style: normal;
+  font-weight: 700;
+  margin-bottom: 0.1rem;
+  user-select: none;
+}
+
+.final-takeaway-attribution {
+  display: block;
+  margin-top: 1.25rem;
+  font-size: 12px;
+  font-variant: small-caps;
+  letter-spacing: 0.08em;
+  color: rgba(255,255,255,0.42);
+  font-style: normal;
+  font-weight: 400;
+  font-family: var(--sans);
 }
 
 .attribution {
@@ -2143,10 +2166,11 @@ a.bib-item {
   border-radius: 4px;
   margin-bottom: 0.35rem;
 }
-.bib-type-paper   { background: rgba(200,16,46,0.12);  color: var(--red);   border: 1px solid rgba(200,16,46,0.3);  }
-.bib-type-code    { background: rgba(27,58,107,0.12);  color: var(--navy);  border: 1px solid rgba(27,58,107,0.3);  }
-.bib-type-proposal{ background: rgba(33,150,243,0.12); color: #2196F3;      border: 1px solid rgba(33,150,243,0.3); }
-.bib-type-empirical{ background: rgba(76,175,80,0.12); color: #388e3c;      border: 1px solid rgba(76,175,80,0.3);  }
+.bib-type-paper      { background: rgba(200,16,46,0.12);  color: var(--red);   border: 1px solid rgba(200,16,46,0.3);  }
+.bib-type-code       { background: rgba(27,58,107,0.12);  color: var(--navy);  border: 1px solid rgba(27,58,107,0.3);  }
+.bib-type-proposal   { background: rgba(33,150,243,0.12); color: #2196F3;      border: 1px solid rgba(33,150,243,0.3); }
+.bib-type-empirical  { background: rgba(76,175,80,0.12);  color: #388e3c;      border: 1px solid rgba(76,175,80,0.3);  }
+.bib-type-assumption { background: rgba(245,158,11,0.1);  color: #92400e;      border: 1px solid rgba(245,158,11,0.28); }
 
 /* ── Mobile stat display (replaces chart on steps 0-5 below 640px) ── */
 #mobile-stat-display {
