@@ -601,6 +601,7 @@ function initPickValues() {
     if (twoEl) twoEl.style.display = "none";
     const dispEl = document.getElementById("mobile-stat-display");
     if (!dispEl) return;
+    dispEl.style.display = "";
     const numEl = dispEl.querySelector(".mobile-stat-number");
     const lblEl = dispEl.querySelector(".mobile-stat-label");
     const cmpEl = dispEl.querySelector(".mobile-stat-compare");
@@ -782,11 +783,11 @@ function initPickValues() {
         .attr("fill", d => barColor(d.pick, null));
       xAxisG.selectAll("text").transition().duration(600).delay(300).attr("opacity", 1);
     } else if (step === 2) {
-      showCardStatView();
       const dispEl2 = document.getElementById("mobile-stat-display");
       const twoEl2  = document.getElementById("two-card-stats");
       if (dispEl2) dispEl2.style.display = "none";
       if (twoEl2)  twoEl2.style.display  = "none";
+      showCardStatView();
       swapCard("hakeem");
       updateBars(currentMetric, null); lastHighlight = null;
     } else if (step === 3) {
@@ -1372,7 +1373,7 @@ function drawReformNBA() {
 
     svg.append("text")
       .attr("x", rowX - 4).attr("y", gy + 8)
-      .attr("text-anchor", "end").attr("fill", color).attr("font-size", 8).attr("opacity", 0.7)
+      .attr("text-anchor", "end").attr("fill", LGRAY).attr("font-size", 8).attr("opacity", 0.7)
       .text(`#${30 - ti}`);
 
     for (let s = 0; s < n; s++) {
@@ -1679,7 +1680,7 @@ function drawReform321() {
   const BALLS_321 = [2,2,2, 3,3,3,3,3,3,3, 2,2,2,2, 1,1]; // 37 total
   const TOTAL_321 = 37;
   const NSQUARES_321 = BALLS_321.map(b => Math.round(b / TOTAL_321 * 200));
-  const TIER = BALLS_321.map((_, i) => i < 3 ? RED : i < 10 ? NAVY : i < 14 ? RED : LGRAY);
+  const TIER = BALLS_321.map((_, i) => i < 3 ? RED : i < 7 ? NAVY : LGRAY);
   const N_TEAMS_321 = 16;
   const SQ = 9, GAP = 2, CELL = SQ + GAP;
   const FROW_H = 14, FY0 = 20;

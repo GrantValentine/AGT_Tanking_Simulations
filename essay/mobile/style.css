@@ -1728,7 +1728,7 @@ svg text { font-family: var(--sans); }
 /* ── Prize visual slot: fixed-height overlay container ─────────── */
 #prize-visual-slot {
   position: relative;
-  height: 295px;
+  height: 315px;
   overflow: visible;
 }
 #card-stat-view {
