@@ -579,6 +579,7 @@ function initPickValues() {
     grp.append("text")
       .attr("class", "pl-label")
       .attr("x", iw / 2).attr("text-anchor", "middle")
+      .attr("dominant-baseline", "middle")
       .attr("fill", plc.color).attr("font-size", 8).attr("font-weight", 700);
     playerLines[plc.key] = { g: grp, kp, plc };
   });
@@ -689,7 +690,7 @@ function initPickValues() {
       grp.select(".pl-line").attr("y1", lineY).attr("y2", lineY);
       // Label anchored to player's own pick bar, clamped within chart area
       const barCenterX = x(plc.pick) !== undefined ? x(plc.pick) + x.bandwidth() / 2 : iw / 2;
-      const labelY = Math.max(10, Math.min(ih - 10, lineY - 5));
+      const labelY = Math.max(10, Math.min(ih - 10, lineY));
       grp.select(".pl-label")
         .attr("x", barCenterX)
         .attr("y", labelY)
@@ -1277,7 +1278,7 @@ const COLA_PUD_STEPS = [
   },
   {
     headline: "Three seasons. One number.",
-    prose: "Nine tickets. Both of them. Three years, 192 losses vs. 138 — the same lottery equity as the team that competed every night. That's not a side effect of COLA. That's the proof of concept.",
+    prose: "Nine tickets. Both of them. Three years, 192 losses vs. 138. The same lottery equity as the team that competed every night. That's not a side effect of COLA. That's the proof of concept.",
     tank:   { tickets: 9, record: "16–66" },
     honest: { tickets: 9, record: "34–48" },
     cumTank: 192, cumHonest: 138,

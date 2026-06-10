@@ -1200,7 +1200,7 @@ const COLA_PUD_STEPS = [
   },
   {
     headline: "Three seasons. One number.",
-    prose: "Nine tickets. Both of them. Three years, 150 engineered losses — the same lottery equity as the team that competed every night. That's not a side effect of COLA. That's the proof of concept.",
+    prose: "Nine tickets. Both of them. Three years, 150 engineered losses. The same lottery equity as the team that competed every night. That's not a side effect of COLA. That's the proof of concept.",
     tank:   { tickets: 9, record: "16–66" },
     honest: { tickets: 9, record: "34–48" },
     mid: null, isFinal: true,
