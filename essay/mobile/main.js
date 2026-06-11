@@ -1756,9 +1756,9 @@ function drawReform321() {
       .attr("x", d => mode === "current" ? d.xCur : d.x321);
     svg.selectAll(".r-rnk-321").transition().duration(dur)
       .attr("opacity", d => mode === "current" ? d.opCur : 0.9);
-    toggleLabel.text(mode === "321" ? "← Back to current rules" : "Switch to 3-2-1 proposal →");
+    toggleLabel.text(mode === "321" ? "← Back to current rules" : "Switch to 3-2-1 →");
     const subtitleEl = document.getElementById("reform-321-subtitle");
-    if (subtitleEl) subtitleEl.textContent = mode === "321" ? "3-2-1 proposal, starting 2027" : "current rules, 2026";
+    if (subtitleEl) subtitleEl.textContent = mode === "321" ? "3-2-1 format, starting 2027" : "current rules, 2026";
     const revealEl = document.getElementById("reform-321-reveal");
     if (revealEl && mode === "current") revealEl.style.opacity = "0";
   }
@@ -1772,7 +1772,7 @@ function drawReform321() {
   const toggleLabel = toggleG.append("text")
     .attr("text-anchor", "middle").attr("dy", "0.35em")
     .attr("fill", "rgba(255,255,255,0.65)").attr("font-size", 9)
-    .text("Switch to 3-2-1 proposal →");
+    .text("Switch to 3-2-1 →");
 
   toggleG.on("click", function() {
     if (_autoTid) { clearTimeout(_autoTid); _autoTid = null; }
