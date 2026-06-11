@@ -579,7 +579,7 @@ function initPickValues() {
     grp.append("text")
       .attr("class", "pl-label")
       .attr("x", iw / 2).attr("text-anchor", "middle")
-      .attr("dominant-baseline", "middle")
+      .attr("dominant-baseline", "auto")
       .attr("fill", plc.color).attr("font-size", 8).attr("font-weight", 700);
     playerLines[plc.key] = { g: grp, kp, plc };
   });
@@ -688,9 +688,8 @@ function initPickValues() {
       ratingIndex[rating] = dupIdx + 1;
       const lineY = yPos + dupIdx * 2;
       grp.select(".pl-line").attr("y1", lineY).attr("y2", lineY);
-      // Label anchored to player's own pick bar, clamped within chart area
-      const barCenterX = x(plc.pick) !== undefined ? x(plc.pick) + x.bandwidth() / 2 : iw / 2;
-      const labelY = Math.max(10, Math.min(ih - 10, lineY));
+      const barCenterX = iw / 2;
+      const labelY = Math.min(ih - 10, lineY - 6);
       grp.select(".pl-label")
         .attr("x", barCenterX)
         .attr("y", labelY)
