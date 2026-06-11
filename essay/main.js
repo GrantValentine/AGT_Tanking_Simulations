@@ -2425,250 +2425,239 @@ function initTankingTimingChart() {
   obs.observe(el);
 }
 
-// ── Pick Distribution Heatmap ─────────────────────────────────────────────────
+// ── Pick Distribution Stacked Bar Chart ───────────────────────────────────────
 function initPickDistributionChart() {
   const d = DATA.pick_distribution;
   if (!d) return;
   const el = document.getElementById("pick-distribution-chart");
   if (!el) return;
 
-  // Single navy intensity scale, row-normalized. Judgment communicated via row label pills only.
-  // Distributions were proportionally rebucketed from original [Pick1, Picks2-3, Picks4-7, Picks8-14].
-  const NAVY     = "#1B3A6B";
-  const BADGE_BG = "#1B3A6B";
+  // Four navy shades: darkest (Pick 1) to lightest (Picks 10-14)
+  const SEG_COLORS = ["#1B3A6B", "#3F6FA8", "#8AAED6", "#D4E3F3"];
+  const SEG_LABELS = ["Pick 1", "Picks 2-4", "Picks 5-9", "Picks 10-14"];
+  const SEG_SUBS   = ["franchise talent", "lottery upside", "solid contributors", "role players"];
 
-  const W = Math.max(el.clientWidth || 580, 420);
-  const rowH = 44;  // ~30% reduction from prior 62px
-  const labelW = 120, rightPad = 12;
-  const colW = Math.floor((W - labelW - rightPad) / MECH_ORDER.length);
-  const headerH = 46;
-  const nRows = d.pick_ranges.length;
-  const totalH = headerH + nRows * rowH;
+  // Normalize each mechanism's values to sum exactly to 1.0
+  const rawData = MECH_ORDER.map(mech => {
+    const vals = d.distributions[mech];
+    const sum  = vals.reduce((a, b) => a + b, 0);
+    return vals.map(v => v / sum);
+  });
 
-  const svg = d3.select("#pick-distribution-chart")
-    .append("svg").attr("viewBox", `0 0 ${W} ${totalH}`)
-    .attr("width", "100%").attr("height", totalH);
+  // Average cumulative boundary between Picks 2-4 and Picks 5-9 (for reference line)
+  const avgBoundary = rawData.reduce((s, v) => s + v[0] + v[1], 0) / rawData.length;
 
-  const ROW_SUBLABELS = ["franchise talent", "lottery upside", "solid contributors", "role players"];
-  const ROW_PILL_TEXT = ["want dark here", "want dark here", "want light here", "want light here"];
-  const ROW_PILL_TC   = ["#2d7a50", "#2d7a50", "#9e3e3e", "#9e3e3e"];
-  const ROW_PILL_BG   = ["#e8f5ee", "#e8f5ee", "#faeaea", "#faeaea"];
-
-  // Per-row max for row-normalized intensity
-  const rowMaxVals = d.pick_ranges.map((_, ri) =>
-    d3.max(MECH_ORDER.map(mech => d.distributions[mech][ri]))
-  );
-
-  function cellColor(ri, val) {
-    const t = rowMaxVals[ri] > 0 ? val / rowMaxVals[ri] : 0;
-    return d3.interpolateRgb("#f0f2f5", NAVY)(t);
-  }
-
-  const CELL_CONTEXT = [
-    (pct) => pct >= 10
-      ? `About 1 in ${Math.round(100 / pct)} seasons, the weakest teams land the top pick.`
-      : `The weakest teams get the top pick only ${pct}% of the time.`,
-    (pct) => pct >= 25
-      ? `Weak teams land a top-4 pick roughly 1 in ${Math.round(100 / pct)} seasons.`
-      : `A top-4 pick lands with weak teams in only ${pct}% of seasons.`,
-    (pct) => pct >= 35
-      ? `More than a third of the time, weak teams land in the middle of the lottery with limited upside.`
-      : `Weak teams land picks 5 to 9 in about ${pct}% of seasons, a mediocre outcome.`,
-    (pct) => pct >= 35
-      ? `Nearly half the time, the weakest teams end up at the bottom of the lottery with role-player odds.`
-      : `Weak teams land picks 10 to 14 in ${pct}% of seasons despite struggling all year.`,
+  const SEG_CONTEXT = [
+    (mech, pct) => `Under ${MECH_LABELS[mech]}, the weakest teams land the top pick ${pct}% of the time.`,
+    (mech, pct) => `Under ${MECH_LABELS[mech]}, the weakest teams receive picks 2 through 4 in ${pct}% of seasons.`,
+    (mech, pct) => `Under ${MECH_LABELS[mech]}, the weakest teams land in the middle of the lottery ${pct}% of the time, a mediocre outcome.`,
+    (mech, pct) => `Under ${MECH_LABELS[mech]}, the weakest teams end up at the bottom of the lottery ${pct}% of the time despite struggling all year.`,
   ];
 
   const BADGE_TOOLTIP = "Early-season losses count more under Weighted Loss, so truly weak teams that struggle from game one accumulate the most lottery value. This gives them a slight edge at the top pick despite the mechanism not being designed for redistribution.";
 
-  const HEATMAP_TIPS = {
-    nba_lottery:            "Worse records get more lottery balls, so tanking concentrates picks at the bottom of the lottery rather than the top.",
-    bilevel:                "Standings lock at game 70, which reduces late-season tanking but leaves the early-season incentive intact.",
-    weighted_loss_exp_hl20: "Early losses count more than late ones, so teams that tank from the start accumulate an advantage over honest late-season losers.",
-    nba_321_lottery:        "The bottom three teams get fewer balls than teams ranked 4 through 14, which reduces extreme tanking but creates a bubble incentive.",
-    cola:                   "All non-playoff teams earn equal tickets regardless of record, so weak teams build advantage through multi-year accumulation rather than single-season losing.",
-  };
+  const W       = Math.max(el.clientWidth || 580, 380);
+  const labelW  = 112;
+  const rPad    = 12;
+  const barW    = W - labelW - rPad;
+  const effectiveBarW = barW - 6;
+  const barH    = 36;
+  const barGap  = 16;
+  const legH    = 58;
+  const annH    = 32;
+  const topPad  = 6;
+  const barsTop = topPad + legH + annH;
+  const barsBot = barsTop + MECH_ORDER.length * barH + (MECH_ORDER.length - 1) * barGap;
+  const totalH  = barsBot + 8;
 
-  const cellRects  = [];
-  const cellColors = [];
-  const cellTexts  = [];
-  const wlColIdx   = MECH_ORDER.indexOf("weighted_loss_exp_hl20");
-  let   wlBadgeGroup = null;
+  const svg = d3.select("#pick-distribution-chart")
+    .append("svg")
+    .attr("viewBox", `0 0 ${W} ${totalH}`)
+    .attr("width", "100%")
+    .attr("height", totalH);
 
-  // Shared tooltip
+  const defs = svg.append("defs");
+
+  // ── Legend row ────────────────────────────────────────────────────────────────
+  const legSpacing = Math.floor(barW / 4);
+  SEG_COLORS.forEach((color, si) => {
+    const lx = labelW + si * legSpacing;
+    svg.append("rect")
+      .attr("x", lx).attr("y", topPad + 2)
+      .attr("width", 13).attr("height", 13)
+      .attr("rx", 2).attr("fill", color);
+    svg.append("text")
+      .attr("x", lx + 18).attr("y", topPad + 8)
+      .attr("dominant-baseline", "middle")
+      .attr("fill", "#222222").attr("font-size", 12).attr("font-weight", 600)
+      .text(SEG_LABELS[si]);
+    svg.append("text")
+      .attr("x", lx + 18).attr("y", topPad + 23)
+      .attr("dominant-baseline", "middle")
+      .attr("fill", "#AAAAAA").attr("font-size", 10).attr("font-style", "italic")
+      .text(SEG_SUBS[si]);
+  });
+
+  // ── Above-chart labels ────────────────────────────────────────────────────────
+  const leftLabelCx  = labelW + avgBoundary * effectiveBarW / 2;
+  const rightLabelCx = labelW + avgBoundary * effectiveBarW + 6 + (1 - avgBoundary) * effectiveBarW / 2;
+  const labelAboveY  = topPad + legH + annH / 2;
+
+  svg.append("text")
+    .attr("x", leftLabelCx).attr("y", labelAboveY)
+    .attr("text-anchor", "middle").attr("dominant-baseline", "middle")
+    .attr("fill", "#AAAAAA").attr("font-size", 12).attr("font-style", "italic")
+    .text("transformative picks");
+
+  svg.append("text")
+    .attr("x", rightLabelCx).attr("y", labelAboveY)
+    .attr("text-anchor", "middle").attr("dominant-baseline", "middle")
+    .attr("fill", "#AAAAAA").attr("font-size", 12).attr("font-style", "italic")
+    .text("solid but not franchise-changing");
+
+  // ── Shared tooltip ─────────────────────────────────────────────────────────────
   const tipEl = document.createElement("div");
-  tipEl.style.cssText = "position:fixed;background:rgba(10,10,20,0.92);color:white;font-size:12px;padding:8px 10px;border-radius:6px;box-shadow:0 4px 12px rgba(0,0,0,0.5);max-width:240px;pointer-events:none;opacity:0;transition:opacity 100ms ease;z-index:1000;line-height:1.55;";
+  tipEl.style.cssText = "position:fixed;background:rgba(10,10,20,0.92);color:white;font-size:12px;padding:8px 10px;border-radius:6px;box-shadow:0 4px 12px rgba(0,0,0,0.5);max-width:260px;pointer-events:none;opacity:0;transition:opacity 100ms ease;z-index:1000;line-height:1.55;";
   document.body.appendChild(tipEl);
 
-  function showTip(html, svgCx, svgCy) {
+  function showTip(html, cx, cy) {
     const bb = svg.node().getBoundingClientRect();
-    const left = Math.min(Math.max(4, bb.left + svgCx * (bb.width / W) - 120), window.innerWidth - 254);
+    const sx = bb.width / W, sy = bb.height / totalH;
+    const left = Math.min(Math.max(4, bb.left + cx * sx - 130), window.innerWidth - 274);
     tipEl.innerHTML = html;
     tipEl.style.left = left + "px";
-    tipEl.style.top  = (bb.top + svgCy * (bb.height / totalH) + 6) + "px";
+    tipEl.style.top  = (bb.top + cy * sy + 10) + "px";
     tipEl.style.opacity = "1";
   }
   const hideTip = () => { tipEl.style.opacity = "0"; };
 
-  // Column headers with subtle bottom accent border
-  MECH_ORDER.forEach((mech, ci) => {
-    const hx = labelW + ci * colW;
+  // ── Bars ───────────────────────────────────────────────────────────────────────
+  const segRects  = [];
+  const segWidths = [];
+  const segLabels = [];
+  let   wlBadgeG  = null;
+  const wlBi      = MECH_ORDER.indexOf("weighted_loss_exp_hl20");
+
+  MECH_ORDER.forEach((mech, bi) => {
+    const barY = barsTop + bi * (barH + barGap);
+    const vals = rawData[bi];
+    const bRects = [], bWidths = [], bLabels = [];
+    segRects.push(bRects);
+    segWidths.push(bWidths);
+    segLabels.push(bLabels);
+
     svg.append("text")
-      .attr("x", hx + colW / 2)
-      .attr("y", headerH - 8)
-      .attr("text-anchor", "middle")
-      .attr("fill", COLORS[mech]).attr("font-size", 10).attr("font-weight", 700)
+      .attr("x", labelW - 8).attr("y", barY + barH / 2)
+      .attr("text-anchor", "end").attr("dominant-baseline", "middle")
+      .attr("fill", COLORS[mech]).attr("font-size", 13).attr("font-weight", 700)
       .text(MECH_LABELS[mech]);
 
-    svg.append("line")
-      .attr("x1", hx + 2).attr("x2", hx + colW - 2)
-      .attr("y1", headerH - 1).attr("y2", headerH - 1)
-      .attr("stroke", COLORS[mech]).attr("stroke-width", 1).attr("opacity", 0.55);
+    // Clip path gives the full bar rounded ends without gaps between segments
+    const clipId = `pd-clip-${bi}`;
+    defs.append("clipPath").attr("id", clipId)
+      .append("rect")
+      .attr("x", labelW).attr("y", barY)
+      .attr("width", barW).attr("height", barH)
+      .attr("rx", 5);
 
-    cellRects.push([]);
-    cellColors.push([]);
-    cellTexts.push([]);
-  });
+    const barG = svg.append("g").attr("clip-path", `url(#${clipId})`);
+    let cumX = 0;
 
-  // Row labels (three elements: main, descriptor, judgment pill) + cells
-  d.pick_ranges.forEach((label, ri) => {
-    const cellY = headerH + ri * rowH;
+    vals.forEach((val, si) => {
+      const segW = val * effectiveBarW;
+      const segX = labelW + cumX + (si >= 2 ? 6 : 0);
+      const pct  = Math.round(val * 100);
 
-    svg.append("text")
-      .attr("x", labelW - 8).attr("y", cellY + 9)
-      .attr("text-anchor", "end").attr("dominant-baseline", "middle")
-      .attr("fill", "#111111").attr("font-size", 13).attr("font-weight", 700)
-      .text(label);
-    svg.append("text")
-      .attr("x", labelW - 8).attr("y", cellY + 21)
-      .attr("text-anchor", "end").attr("dominant-baseline", "middle")
-      .attr("fill", "#555555").attr("font-size", 11).attr("font-style", "italic")
-      .text(ROW_SUBLABELS[ri]);
-
-    // Judgment pill: append text first to measure, then insert background rect behind it
-    const pillG = svg.append("g");
-    const pillTxt = pillG.append("text")
-      .attr("x", labelW - 8).attr("y", cellY + 34)
-      .attr("text-anchor", "end").attr("dominant-baseline", "middle")
-      .attr("fill", ROW_PILL_TC[ri]).attr("font-size", 10)
-      .text(ROW_PILL_TEXT[ri]);
-    const pbb = pillTxt.node().getBBox();
-    pillG.insert("rect", "text")
-      .attr("x", pbb.x - 4).attr("y", pbb.y - 2)
-      .attr("width", pbb.width + 8).attr("height", pbb.height + 4)
-      .attr("rx", 3).attr("fill", ROW_PILL_BG[ri]);
-
-    MECH_ORDER.forEach((mech, ci) => {
-      const val   = d.distributions[mech][ri];
-      const cellX = labelW + ci * colW;
-      const pct   = Math.round(val * 100);
-      const color = cellColor(ri, val);
-      const tNorm = rowMaxVals[ri] > 0 ? val / rowMaxVals[ri] : 0;
-
-      const cellSel = svg.append("rect")
-        .attr("x", cellX + 2).attr("y", cellY + 2)
-        .attr("width", colW - 4).attr("height", rowH - 4)
-        .attr("rx", 4)
-        .style("fill", "#f0f2f5")
-        .style("transition", "fill 400ms ease")
+      const r = barG.append("rect")
+        .attr("x", segX).attr("y", barY)
+        .attr("width", 0).attr("height", barH)
+        .attr("fill", SEG_COLORS[si])
         .on("mouseenter", () => showTip(
-          `<span style="font-size:15px;font-weight:700">${pct}% of the time.</span><br>${CELL_CONTEXT[ri](pct)}`,
-          cellX + colW / 2, cellY + rowH
+          `<span style="font-weight:700;font-size:13px">${MECH_LABELS[mech]}: ${SEG_LABELS[si]}</span><br>` +
+          `<span style="font-size:15px;font-weight:700">${pct}%</span><br>` +
+          SEG_CONTEXT[si](mech, pct),
+          segX + segW / 2, barY + barH
         ))
         .on("mouseleave", hideTip);
 
-      const textSel = svg.append("text")
-        .attr("x", cellX + colW / 2).attr("y", cellY + rowH / 2)
-        .attr("text-anchor", "middle").attr("dominant-baseline", "middle")
-        .attr("fill", tNorm > 0.75 ? "white" : "#333")
-        .attr("font-size", 15).attr("font-weight", 700)
-        .style("opacity", "0")
-        .style("transition", "opacity 300ms ease")
-        .style("pointer-events", "none")
-        .text(`${pct}%`);
+      bRects.push(r.node());
+      bWidths.push(segW);
 
-      cellRects[ci].push(cellSel.node());
-      cellColors[ci].push(color);
-      cellTexts[ci].push(textSel.node());
-
-      // WL Pick 1 badge: dark navy pill, white text 10px
-      if (ri === 0 && mech === "weighted_loss_exp_hl20") {
-        const bg = svg.append("g")
-          .style("opacity", "0")
-          .style("transition", "opacity 300ms ease")
-          .on("mouseenter", () => showTip(
-            `<span style="font-size:13px;font-weight:700">Why Weighted Loss leads here:</span><br>${BADGE_TOOLTIP}`,
-            cellX + colW / 2, cellY + rowH
-          ))
-          .on("mouseleave", hideTip);
-
-        const btxt = bg.append("text")
-          .attr("x", cellX + colW - 5)
-          .attr("y", cellY + 6)
-          .attr("text-anchor", "end")
-          .attr("dominant-baseline", "hanging")
-          .attr("fill", "white")
-          .attr("font-size", 10)
-          .attr("font-weight", 700)
-          .text("leads on pick 1");
-
-        const bb = btxt.node().getBBox();
-        bg.insert("rect", "text")
-          .attr("x", bb.x - 4).attr("y", bb.y - 2)
-          .attr("width", bb.width + 8).attr("height", bb.height + 4)
-          .attr("rx", 4).attr("fill", BADGE_BG);
-
-        wlBadgeGroup = bg.node();
+      // Inline label: omit if segment too narrow (under ~6%)
+      let labelNode = null;
+      if (val >= 0.06) {
+        const textFill = si < 2 ? "white" : "#1B3A6B";
+        const lt = svg.append("text")
+          .attr("x", segX + segW / 2).attr("y", barY + barH / 2)
+          .attr("text-anchor", "middle").attr("dominant-baseline", "middle")
+          .attr("fill", textFill).attr("font-size", 13).attr("font-weight", 600)
+          .style("pointer-events", "none").style("opacity", "0")
+          .text(`${pct}%`);
+        labelNode = lt.node();
       }
+      bLabels.push(labelNode);
+      cumX += segW;
     });
+
+    // "leads on pick 1" annotation with leader line above Weighted Loss bar
+    if (bi === wlBi) {
+      const wlSeg0W = vals[0] * effectiveBarW;
+      const wlBg = svg.append("g")
+        .style("opacity", "0")
+        .on("mouseenter", () => showTip(
+          `<span style="font-size:13px;font-weight:700">Why Weighted Loss leads here:</span><br>${BADGE_TOOLTIP}`,
+          labelW + wlSeg0W / 2, barY
+        ))
+        .on("mouseleave", hideTip);
+      wlBg.append("text")
+        .attr("x", labelW + wlSeg0W / 2).attr("y", barY - 4)
+        .attr("text-anchor", "middle").attr("dominant-baseline", "auto")
+        .attr("fill", "#666666").attr("font-size", 11).attr("font-style", "italic")
+        .text("leads on pick 1");
+      wlBg.append("line")
+        .attr("x1", labelW + wlSeg0W / 2).attr("y1", barY - 2)
+        .attr("x2", labelW + wlSeg0W / 2).attr("y2", barY)
+        .attr("stroke", "#999999").attr("stroke-width", 1);
+      wlBadgeG = wlBg.node();
+    }
   });
 
-  // Column header overlays for highlight and mechanism tooltip
-  MECH_ORDER.forEach((mech, ci) => {
-    const hx = labelW + ci * colW;
-    svg.append("rect")
-      .attr("x", hx).attr("y", 0)
-      .attr("width", colW).attr("height", headerH)
-      .attr("fill", "transparent")
-      .on("mouseenter", function() {
-        showTip(HEATMAP_TIPS[mech], hx + colW / 2, headerH);
-        cellRects[ci].forEach(r => { r.style.stroke = COLORS[mech]; r.style.strokeWidth = "1px"; });
-      })
-      .on("mouseleave", function() {
-        hideTip();
-        cellRects[ci].forEach(r => { r.style.stroke = ""; r.style.strokeWidth = ""; });
-      });
-  });
-
-  // Summary caption (legend removed; judgment communicated via row label pills)
+  // ── Summary caption ────────────────────────────────────────────────────────────
   const summaryEl = document.createElement("p");
   summaryEl.textContent = "Every mechanism sends the weakest teams to the bottom of the draft more often than the top. The gap between mechanisms is real but smaller than you might hope.";
   summaryEl.style.cssText = "margin-top:0.5rem;font-size:0.8rem;color:#555555;text-align:center;font-style:italic;letter-spacing:0.02em;opacity:0;transition:opacity 0.6s ease;";
   el.appendChild(summaryEl);
 
-  // Scroll-triggered animation: columns left to right, cells top to bottom
+  // ── Scroll animation: bars fill left to right, 150ms stagger between bars ──────
   let animated = false;
   const observer = new IntersectionObserver((entries) => {
     if (animated || !entries[0].isIntersecting) return;
     animated = true;
     observer.disconnect();
 
-    MECH_ORDER.forEach((_, ci) => {
-      d.pick_ranges.forEach((__, ri) => {
-        const delay = ci * 200 + ri * 80;
+    MECH_ORDER.forEach((_, bi) => {
+      segRects[bi].forEach((rect, si) => {
         setTimeout(() => {
-          cellRects[ci][ri].style.fill = cellColors[ci][ri];
-          cellTexts[ci][ri].style.opacity = "1";
-          if (ci === wlColIdx && ri === 0 && wlBadgeGroup) {
-            setTimeout(() => { wlBadgeGroup.style.opacity = "1"; }, 450);
+          d3.select(rect).transition().duration(200).ease(d3.easeQuadOut)
+            .attr("width", segWidths[bi][si]);
+          if (segLabels[bi][si]) {
+            setTimeout(() => {
+              d3.select(segLabels[bi][si]).transition().duration(150).style("opacity", "1");
+            }, 180);
           }
-        }, delay);
+        }, bi * 150 + si * 80);
       });
     });
 
-    const totalDelay = (MECH_ORDER.length - 1) * 200 + (nRows - 1) * 80 + 400 + 300;
-    setTimeout(() => { summaryEl.style.opacity = "1"; }, totalDelay);
-  }, { threshold: 0.3 });
+    if (wlBadgeG) {
+      setTimeout(() => {
+        d3.select(wlBadgeG).transition().duration(300).style("opacity", "1");
+      }, wlBi * 150 + 3 * 80 + 200 + 200);
+    }
+
+    setTimeout(() => { summaryEl.style.opacity = "1"; },
+      (MECH_ORDER.length - 1) * 150 + 3 * 80 + 200 + 350);
+  }, { threshold: 0.2 });
 
   observer.observe(el);
 }
