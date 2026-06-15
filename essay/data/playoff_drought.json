@@ -1,0 +1,58 @@
+{
+  "mechanisms": [
+    "nba_lottery",
+    "bilevel",
+    "weighted_loss_exp_hl20",
+    "nba_321_lottery",
+    "cola"
+  ],
+  "labels": [
+    "NBA Lottery",
+    "Bilevel",
+    "Weighted Loss",
+    "NBA 3-2-1",
+    "COLA"
+  ],
+  "distributions": {
+    "nba_lottery": {
+      "pct_1yr": 0.5802,
+      "pct_2yr": 0.2395,
+      "pct_3yr": 0.1086,
+      "pct_4plus": 0.0716,
+      "mean": 1.728,
+      "n": 405
+    },
+    "bilevel": {
+      "pct_1yr": 0.575,
+      "pct_2yr": 0.2375,
+      "pct_3yr": 0.115,
+      "pct_4plus": 0.0725,
+      "mean": 1.75,
+      "n": 400
+    },
+    "weighted_loss_exp_hl20": {
+      "pct_1yr": 0.5412,
+      "pct_2yr": 0.25,
+      "pct_3yr": 0.134,
+      "pct_4plus": 0.0747,
+      "mean": 1.804,
+      "n": 388
+    },
+    "nba_321_lottery": {
+      "pct_1yr": 0.5678,
+      "pct_2yr": 0.2199,
+      "pct_3yr": 0.1407,
+      "pct_4plus": 0.0716,
+      "mean": 1.79,
+      "n": 391
+    },
+    "cola": {
+      "pct_1yr": 0.5553,
+      "pct_2yr": 0.2513,
+      "pct_3yr": 0.1231,
+      "pct_4plus": 0.0704,
+      "mean": 1.759,
+      "n": 398
+    }
+  }
+}

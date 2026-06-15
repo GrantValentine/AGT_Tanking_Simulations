@@ -134,7 +134,7 @@ async function loadAll() {
   const files = [
     "pick_values", "tanking_rates", "tau_distances",
     "draft_efficiency", "tanking_timing", "pick_distribution",
-    "llm_by_mechanism", "season_trajectory", "nba2k_picks",
+    "playoff_drought", "llm_by_mechanism", "season_trajectory", "nba2k_picks",
   ];
   const results = await Promise.all(
     files.map(f => fetch(`../data/${f}.json`).then(r => r.json()))
@@ -2489,6 +2489,205 @@ function initPickDistributionChart() {
   observer.observe(el);
 }
 
+// ── Playoff Drought Distribution ──────────────────────────────────────────────
+function initPlayoffDroughtChart() {
+  const d = DATA.playoff_drought;
+  if (!d) return;
+  const el = document.getElementById("playoff-drought-chart");
+  if (!el) return;
+
+  const SEG_COLORS = ["#1B3A6B", "#3F6FA8", "#8AAED6", "#D4E3F3"];
+  const SEG_LABELS = ["1 yr", "2 yrs", "3 yrs", "4+ yrs"];
+  const SEG_SUBS   = ["instant bounce-back", "one rebuild cycle", "struggling years", "stuck in cycle"];
+
+  const rawData = MECH_ORDER.map(mech => {
+    const dist = d.distributions[mech];
+    const vals = [dist.pct_1yr, dist.pct_2yr, dist.pct_3yr, dist.pct_4plus];
+    const sum  = vals.reduce((a, b) => a + b, 0);
+    return { vals: vals.map(v => v / sum), mean: dist.mean };
+  });
+
+  const W       = Math.max(el.clientWidth || 320, 260);
+  const labelW  = 90;
+  const rPad    = 50;
+  const barW    = W - labelW - rPad;
+  const barH    = 30;
+  const barGap  = 16;
+  const legH    = 48;
+  const annH    = 24;
+  const topPad  = 4;
+  const barsTop = topPad + legH + annH;
+  const barsBot = barsTop + MECH_ORDER.length * barH + (MECH_ORDER.length - 1) * barGap;
+  const totalH  = barsBot + 8;
+
+  const svg = d3.select("#playoff-drought-chart")
+    .append("svg")
+    .attr("viewBox", `0 0 ${W} ${totalH}`)
+    .attr("width", "100%")
+    .attr("height", totalH);
+
+  const defs = svg.append("defs");
+
+  // ── Legend ────────────────────────────────────────────────────────────────────
+  const legSpacing = Math.floor(barW / 4);
+  SEG_COLORS.forEach((color, si) => {
+    const lx = labelW + si * legSpacing;
+    svg.append("rect").attr("x", lx).attr("y", topPad + 2)
+      .attr("width", 11).attr("height", 11).attr("rx", 2).attr("fill", color);
+    svg.append("text").attr("x", lx + 15).attr("y", topPad + 7)
+      .attr("dominant-baseline", "middle")
+      .attr("fill", "#222222").attr("font-size", 11).attr("font-weight", 600)
+      .text(SEG_LABELS[si]);
+    svg.append("text").attr("x", lx + 15).attr("y", topPad + 20)
+      .attr("dominant-baseline", "middle")
+      .attr("fill", "#AAAAAA").attr("font-size", 9).attr("font-style", "italic")
+      .text(SEG_SUBS[si]);
+  });
+
+  // ── Above-chart category labels ───────────────────────────────────────────────
+  const split2yr    = rawData.reduce((s, r) => s + r.vals[0] + r.vals[1], 0) / rawData.length;
+  const leftLabelCx  = labelW + split2yr * barW / 2;
+  const rightLabelCx = labelW + split2yr * barW + (1 - split2yr) * barW / 2;
+  const labelAboveY  = topPad + legH + annH / 2;
+
+  svg.append("text").attr("x", leftLabelCx).attr("y", labelAboveY)
+    .attr("text-anchor", "middle").attr("dominant-baseline", "middle")
+    .attr("fill", "#AAAAAA").attr("font-size", 10).attr("font-style", "italic")
+    .text("shorter droughts");
+  svg.append("text").attr("x", rightLabelCx).attr("y", labelAboveY)
+    .attr("text-anchor", "middle").attr("dominant-baseline", "middle")
+    .attr("fill", "#AAAAAA").attr("font-size", 10).attr("font-style", "italic")
+    .text("prolonged absences");
+
+  // ── Shared tooltip ────────────────────────────────────────────────────────────
+  const tipEl = document.createElement("div");
+  tipEl.style.cssText = "position:fixed;background:rgba(10,10,20,0.92);color:white;font-size:11px;padding:7px 9px;border-radius:6px;box-shadow:0 4px 12px rgba(0,0,0,0.5);max-width:220px;pointer-events:none;opacity:0;transition:opacity 100ms ease;z-index:1000;line-height:1.55;";
+  document.body.appendChild(tipEl);
+
+  function showTip(html, cx, cy) {
+    const bb = svg.node().getBoundingClientRect();
+    const sx = bb.width / W, sy = bb.height / totalH;
+    const left = Math.min(Math.max(4, bb.left + cx * sx - 110), window.innerWidth - 234);
+    tipEl.innerHTML = html;
+    tipEl.style.left = left + "px";
+    tipEl.style.top  = (bb.top + cy * sy + 8) + "px";
+    tipEl.style.opacity = "1";
+  }
+  const hideTip = () => { tipEl.style.opacity = "0"; };
+
+  const SEG_TIP = [
+    (mech, pct) => `Under ${MECH_LABELS[mech]}, ${pct}% of droughts end after just one season.`,
+    (mech, pct) => `Under ${MECH_LABELS[mech]}, ${pct}% of droughts last exactly two seasons.`,
+    (mech, pct) => `Under ${MECH_LABELS[mech]}, ${pct}% of droughts stretch to three seasons.`,
+    (mech, pct) => `Under ${MECH_LABELS[mech]}, ${pct}% of droughts last four or more seasons.`,
+  ];
+
+  // ── Bars ───────────────────────────────────────────────────────────────────────
+  const segRects  = [];
+  const segWidths = [];
+  const segLabels = [];
+  const meanLabels = [];
+
+  MECH_ORDER.forEach((mech, bi) => {
+    const barY = barsTop + bi * (barH + barGap);
+    const { vals, mean } = rawData[bi];
+    const bRects = [], bWidths = [], bLabels = [];
+    segRects.push(bRects);
+    segWidths.push(bWidths);
+    segLabels.push(bLabels);
+
+    svg.append("text").attr("x", labelW - 6).attr("y", barY + barH / 2)
+      .attr("text-anchor", "end").attr("dominant-baseline", "middle")
+      .attr("fill", COLORS[mech]).attr("font-size", 11).attr("font-weight", 700)
+      .text(MECH_LABELS[mech]);
+
+    const clipId = `pd-drought-m-clip-${bi}`;
+    defs.append("clipPath").attr("id", clipId)
+      .append("rect").attr("x", labelW).attr("y", barY)
+      .attr("width", barW).attr("height", barH).attr("rx", 4);
+
+    const barG = svg.append("g").attr("clip-path", `url(#${clipId})`);
+    let cumX = 0;
+
+    vals.forEach((val, si) => {
+      const segW = val * barW;
+      const segX = labelW + cumX;
+      const pct  = Math.round(val * 100);
+
+      const r = barG.append("rect")
+        .attr("x", segX).attr("y", barY)
+        .attr("width", 0).attr("height", barH)
+        .attr("fill", SEG_COLORS[si])
+        .on("click", () => showTip(
+          `<span style="font-weight:700;font-size:12px">${MECH_LABELS[mech]}: ${SEG_LABELS[si]}</span><br>` +
+          `<span style="font-size:14px;font-weight:700">${pct}%</span><br>` +
+          SEG_TIP[si](mech, pct),
+          segX + segW / 2, barY + barH
+        ));
+
+      bRects.push(r.node());
+      bWidths.push(segW);
+
+      let labelNode = null;
+      if (val >= 0.10) {
+        const textFill = si < 2 ? "white" : "#1B3A6B";
+        const lt = svg.append("text")
+          .attr("x", segX + segW / 2).attr("y", barY + barH / 2)
+          .attr("text-anchor", "middle").attr("dominant-baseline", "middle")
+          .attr("fill", textFill).attr("font-size", 11).attr("font-weight", 600)
+          .style("pointer-events", "none").style("opacity", "0")
+          .text(`${pct}%`);
+        labelNode = lt.node();
+      }
+      bLabels.push(labelNode);
+      cumX += segW;
+    });
+
+    const meanLabel = svg.append("text")
+      .attr("x", labelW + barW + 6).attr("y", barY + barH / 2)
+      .attr("dominant-baseline", "middle").attr("fill", GRAY)
+      .attr("font-size", 10).style("opacity", "0")
+      .text(`${mean.toFixed(2)}`);
+    meanLabels.push(meanLabel.node());
+  });
+
+  // ── Summary caption ────────────────────────────────────────────────────────────
+  const summaryEl = document.createElement("p");
+  summaryEl.textContent = "Mechanisms that reward sustained losing see slightly more three-year droughts. The spread in average drought length is under 0.1 seasons across all five designs.";
+  summaryEl.style.cssText = "margin-top:0.5rem;font-size:0.75rem;color:#555555;text-align:center;font-style:italic;opacity:0;transition:opacity 0.6s ease;";
+  el.appendChild(summaryEl);
+
+  // ── Scroll animation ───────────────────────────────────────────────────────────
+  let animated = false;
+  const observer = new IntersectionObserver((entries) => {
+    if (animated || !entries[0].isIntersecting) return;
+    animated = true;
+    observer.disconnect();
+
+    MECH_ORDER.forEach((_, bi) => {
+      segRects[bi].forEach((rect, si) => {
+        setTimeout(() => {
+          d3.select(rect).transition().duration(200).ease(d3.easeQuadOut)
+            .attr("width", segWidths[bi][si]);
+          if (segLabels[bi][si]) {
+            setTimeout(() => {
+              d3.select(segLabels[bi][si]).transition().duration(150).style("opacity", "1");
+            }, 180);
+          }
+        }, bi * 150 + si * 80);
+      });
+      setTimeout(() => {
+        d3.select(meanLabels[bi]).transition().duration(200).style("opacity", "1");
+      }, bi * 150 + 3 * 80 + 220);
+    });
+
+    setTimeout(() => { summaryEl.style.opacity = "1"; },
+      (MECH_ORDER.length - 1) * 150 + 3 * 80 + 200 + 350);
+  }, { threshold: 0.3 });
+
+  observer.observe(el);
+}
+
 // ── Reform Scorecard ──────────────────────────────────────────────────────────
 function initReformScorecard() {
   const tr = DATA.tanking_rates;
@@ -2679,6 +2878,7 @@ async function main() {
   initBalanceScale();
   initTankingTimingChart();
   initPickDistributionChart();
+  initPlayoffDroughtChart();
   initTrajectory();
   initReformExplorer();
   initTankingRateScroll();
